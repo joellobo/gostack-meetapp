@@ -42,14 +42,12 @@ class UserController {
     const schema = Yup.object().shape({
       name: Yup.string(),
       email: Yup.string().email(),
-      oldPassword: Yup.string().min(6),
-      password: Yup.string()
-        .min(6)
-        .when('oldPassword', (oldPassword, field) =>
-          oldPassword ? field.required() : field
-        ),
+      password: Yup.string().min(8),
       passwordConfirmation: Yup.string().when('password', (password, field) =>
         password ? field.required().oneOf([Yup.ref('password')]) : field
+      ),
+      oldPassword: Yup.string().when('password', (password, field) =>
+        password ? field.required() : field
       ),
     })
 
@@ -63,7 +61,7 @@ class UserController {
 
     const user = await User.findByPk(req.userId)
 
-    if (email !== user.email) {
+    if (email && email !== user.email) {
       const userExists = await User.findOne({
         where: { email },
       })
@@ -84,7 +82,7 @@ class UserController {
     return res.json({
       id,
       name,
-      email,
+      email: user.email,
     })
   }
 }
