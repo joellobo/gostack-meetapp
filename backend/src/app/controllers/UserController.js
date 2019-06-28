@@ -15,9 +15,9 @@ class UserController {
     })
 
     if (!(await schema.isValid(req.body))) {
-      return res
-        .status(400)
-        .json({ message: 'Validation failed, there are missing parameters.' })
+      return res.status(400).json({
+        message: 'Validation failed, there are missing or wrong parameters.',
+      })
     }
 
     const { email } = req.body
@@ -52,9 +52,9 @@ class UserController {
     })
 
     if (!(await schema.isValid(req.body))) {
-      return res
-        .status(400)
-        .json({ message: 'Validation failed, there are missing parameters.' })
+      return res.status(400).json({
+        message: 'Validation failed, there are missing or wrong parameters.',
+      })
     }
 
     const { email, oldPassword } = req.body
