@@ -31,6 +31,7 @@ routes.post(
   validateMeetUpStoreFields,
   MeetUpController.store
 )
+routes.put('/meetups', authMiddleware, MeetUpController.update)
 
 routes.post('/sessions', validateSessionStoreFields, SessionController.store)
 
