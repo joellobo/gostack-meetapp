@@ -8,9 +8,11 @@ import FileController from './app/controllers/FileController'
 import validateSessionStoreFields from './app/middlewares/session/validateStoreFields'
 import validateUserStoreFields from './app/middlewares/user/validateStoreFields'
 import validateUserUpdateFields from './app/middlewares/user/validateUpdateFields'
+import validateMeetUpStoreFields from './app/middlewares/meetup/validateStoreFields'
 import authMiddleware from './app/middlewares/global/auth'
 
 import multerConfig from './config/multer'
+import MeetUpController from './app/controllers/MeetUpController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -21,6 +23,13 @@ routes.put(
   authMiddleware,
   validateUserUpdateFields,
   UserController.update
+)
+
+routes.post(
+  '/meetups',
+  authMiddleware,
+  validateMeetUpStoreFields,
+  MeetUpController.store
 )
 
 routes.post('/sessions', validateSessionStoreFields, SessionController.store)
