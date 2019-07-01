@@ -3,6 +3,12 @@ import { isBefore, parseISO } from 'date-fns'
 import MeetUp from '../models/MeetUp'
 
 class MeetUpController {
+  async index(req, res) {
+    const meetUps = await MeetUp.findAll({ where: { user_id: req.userId } })
+
+    return res.json(meetUps)
+  }
+
   async store(req, res) {
     const { title, description, location, dateTime, bannerId } = req.body
 
@@ -55,6 +61,10 @@ class MeetUpController {
     const updatedMeetUp = await meetUp.update(req.body)
 
     return res.json(updatedMeetUp)
+  }
+
+  async delete(req, res) {
+    return res.json()
   }
 }
 
