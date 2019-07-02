@@ -4,23 +4,23 @@ import Meetup from '../models/Meetup'
 
 class MeetupController {
   async index(req, res) {
-    const meetups = await Meetup.findAll({ where: { user_id: req.userId } })
+    const meetUps = await Meetup.findAll({ where: { user_id: req.userId } })
 
-    return res.json(meetups)
+    return res.json(meetUps)
   }
 
   async store(req, res) {
     const { title, description, location, dateTime, bannerId } = req.body
 
-    const isMeetupBeforeNow = isBefore(parseISO(dateTime), new Date())
+    const isMeetUpBeforeNow = isBefore(parseISO(dateTime), new Date())
 
-    if (isMeetupBeforeNow) {
+    if (isMeetUpBeforeNow) {
       return res.status(400).json({
         message: "You can't register MeetUps with dates befores now.",
       })
     }
 
-    const newMeetup = await Meetup.create({
+    const newMeetUp = await Meetup.create({
       title,
       description,
       location,
@@ -29,19 +29,19 @@ class MeetupController {
       user_id: req.userId,
     })
 
-    return res.json(newMeetup)
+    return res.json(newMeetUp)
   }
 
   async update(req, res) {
-    const meetup = await Meetup.findByPk(req.query.meetUpId)
+    const meetUp = await Meetup.findByPk(req.query.meetUpId)
 
-    if (meetup.user_id !== req.userId) {
+    if (meetUp.user_id !== req.userId) {
       return res.status(401).json({
         message: 'You are not authorized to update this MeetUp.',
       })
     }
 
-    if (isBefore(parseISO(meetup.date_time), new Date())) {
+    if (isBefore(parseISO(meetUp.date_time), new Date())) {
       return res.status(400).json({
         message: "You can't update past MeetUps.",
       })
@@ -49,32 +49,32 @@ class MeetupController {
 
     const { dateTime } = req.body
 
-    const isMeetupBeforeNow =
+    const isMeetUpBeforeNow =
       dateTime && isBefore(parseISO(dateTime), new Date())
 
-    if (isMeetupBeforeNow) {
+    if (isMeetUpBeforeNow) {
       return res.status(400).json({
         message: "You can't register MeetUps with dates befores now.",
       })
     }
 
-    const updatedMeetup = await meetup.update(req.body)
+    const updatedMeetUp = await meetUp.update(req.body)
 
-    return res.json(updatedMeetup)
+    return res.json(updatedMeetUp)
   }
 
   async delete(req, res) {
     const meetUpId = Number(req.params.id)
 
-    const meetup = await Meetup.findByPk(meetUpId)
+    const meetUp = await Meetup.findByPk(meetUpId)
 
-    if (!meetup) {
+    if (!meetUp) {
       return res
         .status(404)
         .json({ message: `MeetUp with id ${meetUpId} was not found.` })
     }
 
-    if (meetup.user_id !== req.userId) {
+    if (meetUp.user_id !== req.userId) {
       return res.status(401).json({ message: "You can't delete this MeetUp." })
     }
 
