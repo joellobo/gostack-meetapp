@@ -4,6 +4,8 @@ import multer from 'multer'
 import UserController from './app/controllers/UserController'
 import SessionController from './app/controllers/SessionController'
 import FileController from './app/controllers/FileController'
+import MeetupController from './app/controllers/MeetupController'
+import SubscriptionController from './app/controllers/SubscriptionController'
 
 import validateSessionStoreFields from './app/middlewares/session/validateStoreFields'
 import validateUserStoreFields from './app/middlewares/user/validateStoreFields'
@@ -12,8 +14,6 @@ import validateMeetUpStoreFields from './app/middlewares/meetup/validateStoreFie
 import authMiddleware from './app/middlewares/global/auth'
 
 import multerConfig from './config/multer'
-import MeetupController from './app/controllers/MeetupController'
-import SubscriptionController from './app/controllers/SubscriptionController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
