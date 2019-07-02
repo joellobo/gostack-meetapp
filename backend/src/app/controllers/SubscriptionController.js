@@ -7,7 +7,7 @@ class SubscriptionController {
   async store(req, res) {
     const { meetUpId } = req.query
 
-    const meetUp = Meetup.findByPk(meetUpId)
+    const meetUp = await Meetup.findByPk(meetUpId)
 
     if (!meetUp) {
       return res
@@ -45,16 +45,23 @@ class SubscriptionController {
           model: Meetup,
           as: 'meetup',
           attributes: ['id'],
+          where: { date_time: meetUp.date_time }
         },
       ],
     })
 
-    // const subscription = await Subscription.create({
-    //   user_id: req.userId,
-    //   meetup_id: meetUpId,
-    // })
+    if (sameHourMeetUps) {
+      return res
+        .status(400)
+        .json({ message: 'You can not subscribe to MeetUps that are at the same momemt.' })
+    }
 
-    return res.json(sameHourMeetUps)
+    const subscription = await Subscription.create({
+      user_id: req.userId,
+      meetup_id: meetUpId,
+    })
+
+    return res.json(subscription)
   }
 }
 
