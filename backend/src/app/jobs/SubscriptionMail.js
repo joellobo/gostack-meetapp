@@ -10,15 +10,16 @@ class SubscriptionMail {
 
   async handle({ data }) {
     const { subscription } = data
-    const { owner, user, date } = subscription
+    const { owner, user, date, meetup } = subscription
 
     await Mail.sendMail({
       to: `${owner.name} <${owner.email}>`,
-      subject: 'Agendamento cancelado',
-      template: 'cancellation',
+      subject: 'Nova inscrição em um MeetUp',
+      template: 'subscription',
       context: {
         owner: owner.name,
         user: user.name,
+        meetup: meetup.title,
         date: format(parseISO(date), "'dia' dd 'de' MMMM', às' H:mm'h'", {
           locale: pt,
         }),

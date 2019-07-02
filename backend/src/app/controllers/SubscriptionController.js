@@ -2,6 +2,9 @@ import { isBefore, parseISO } from 'date-fns'
 
 import Subscription from '../models/Subscription'
 import Meetup from '../models/Meetup'
+import User from '../models/User'
+import Queue from '../../lib/Queue'
+import SubscriptionMail from '../jobs/SubscriptionMail'
 
 class SubscriptionController {
   async store(req, res) {
@@ -62,7 +65,38 @@ class SubscriptionController {
       meetup_id: meetUpId,
     })
 
-    return res.json(subscription)
+    const mailData = await Subscription.findByPk(subscription.id, {
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name', 'email'],
+        },
+        {
+          model: Meetup,
+          as: 'meetup',
+          attributes: ['title'],
+          include: [
+            {
+              model: User,
+              as: 'owner',
+              attributes: ['name', 'email'],
+            },
+          ],
+        },
+      ],
+    })
+
+    const mailOrganizedData = {
+      user: mailData.user,
+      owner: mailData.meetup.owner,
+      meetup: { title: mailData.meetup.title },
+      date: mailData.createdAt,
+    }
+
+    await Queue.add(SubscriptionMail.key, { subscription: mailOrganizedData })
+
+    return res.json({ subscription })
   }
 }
 
