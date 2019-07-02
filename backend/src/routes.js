@@ -27,6 +27,7 @@ routes.put(
 )
 
 routes.get('/meetups', authMiddleware, MeetupController.index)
+routes.get('/meetups-by-date', authMiddleware, MeetupController.listByDate)
 routes.post(
   '/meetups',
   authMiddleware,
