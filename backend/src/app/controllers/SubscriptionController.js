@@ -45,15 +45,16 @@ class SubscriptionController {
           model: Meetup,
           as: 'meetup',
           attributes: ['id'],
-          where: { date_time: meetUp.date_time }
+          where: { date_time: meetUp.date_time },
         },
       ],
     })
 
     if (sameHourMeetUps) {
-      return res
-        .status(400)
-        .json({ message: 'You can not subscribe to MeetUps that are at the same momemt.' })
+      return res.status(400).json({
+        message:
+          'You can not subscribe to MeetUps that are at the same momemt.',
+      })
     }
 
     const subscription = await Subscription.create({

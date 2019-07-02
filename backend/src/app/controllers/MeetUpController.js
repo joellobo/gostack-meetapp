@@ -1,10 +1,27 @@
 import { isBefore, parseISO } from 'date-fns'
 
 import Meetup from '../models/Meetup'
+import File from '../models/File'
+import User from '../models/User'
 
 class MeetupController {
   async index(req, res) {
-    const meetUps = await Meetup.findAll({ where: { user_id: req.userId } })
+    const meetUps = await Meetup.findAll({
+      where: { user_id: req.userId },
+      attributes: ['id', 'title', 'description', 'location', 'date_time'],
+      include: [
+        {
+          model: File,
+          as: 'banner',
+          attributes: ['id', 'url'],
+        },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
+        },
+      ],
+    })
 
     return res.json(meetUps)
   }
