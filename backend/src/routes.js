@@ -12,7 +12,8 @@ import validateMeetUpStoreFields from './app/middlewares/meetup/validateStoreFie
 import authMiddleware from './app/middlewares/global/auth'
 
 import multerConfig from './config/multer'
-import MeetUpController from './app/controllers/MeetUpController'
+import MeetupController from './app/controllers/MeetupController'
+import SubscriptionController from './app/controllers/SubscriptionController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -25,14 +26,17 @@ routes.put(
   UserController.update
 )
 
+routes.get('/meetups', authMiddleware, MeetupController.index)
 routes.post(
   '/meetups',
   authMiddleware,
   validateMeetUpStoreFields,
-  MeetUpController.store
+  MeetupController.store
 )
-routes.put('/meetups', authMiddleware, MeetUpController.update)
-routes.get('/meetups', authMiddleware, MeetUpController.index)
+routes.put('/meetups', authMiddleware, MeetupController.update)
+routes.delete('/meetups/:id', authMiddleware, MeetupController.delete)
+
+routes.post('/subscriptions', authMiddleware, SubscriptionController.store)
 
 routes.post('/sessions', validateSessionStoreFields, SessionController.store)
 
