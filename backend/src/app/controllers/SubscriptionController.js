@@ -1,12 +1,48 @@
 import { isBefore, parseISO } from 'date-fns'
+import { Op } from 'sequelize'
 
 import Subscription from '../models/Subscription'
 import Meetup from '../models/Meetup'
 import User from '../models/User'
+import File from '../models/File'
 import Queue from '../../lib/Queue'
 import SubscriptionMail from '../jobs/SubscriptionMail'
 
 class SubscriptionController {
+  async index(req, res) {
+    const subscriptions = await Subscription.findAll({
+      where: { user_id: req.userId },
+      attributes: ['id'],
+      include: [
+        {
+          model: Meetup,
+          as: 'meetup',
+          attributes: ['id', 'title', 'description', 'location', 'date_time'],
+          where: {
+            date_time: {
+              [Op.gt]: new Date(),
+            },
+          },
+          include: [
+            {
+              model: User,
+              as: 'owner',
+              attributes: ['id', 'name', 'email'],
+            },
+            {
+              model: File,
+              as: 'banner',
+              attributes: ['id', 'url'],
+            },
+          ],
+        },
+      ],
+      order: [['meetup', 'date_time']],
+    })
+
+    return res.json(subscriptions)
+  }
+
   async store(req, res) {
     const { meetUpId } = req.query
 

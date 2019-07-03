@@ -27,7 +27,7 @@ routes.put(
 )
 
 routes.get('/meetups', authMiddleware, MeetupController.index)
-routes.get('/meetups-by-date', authMiddleware, MeetupController.listByDate)
+routes.get('/meetups/date', authMiddleware, MeetupController.listByDate)
 routes.post(
   '/meetups',
   authMiddleware,
@@ -38,6 +38,7 @@ routes.put('/meetups', authMiddleware, MeetupController.update)
 routes.delete('/meetups/:id', authMiddleware, MeetupController.delete)
 
 routes.post('/subscriptions', authMiddleware, SubscriptionController.store)
+routes.get('/subscriptions', authMiddleware, SubscriptionController.index)
 
 routes.post('/sessions', validateSessionStoreFields, SessionController.store)
 
