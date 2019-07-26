@@ -8,4 +8,5 @@ export const MaForm = styled(Form)`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 10px;
 `
