@@ -2,6 +2,7 @@ import React from 'react'
 
 import MaInput from '~/components/MaInput'
 import Container from '~/components/Container'
+import MaButton from '~/components/MaButton'
 
 import logo from '~/assets/logo.svg'
 
@@ -12,13 +13,13 @@ export default function SignIn() {
     <Container>
       <img src={logo} alt='MeetApp logo' />
       <MaForm>
-        <MaInput name='name' placeholder='Nome Completo' />
         <MaInput name='email' placeholder='Digite seu e-mail' type='email' />
         <MaInput
           name='password'
           placeholder='Sua senha secreta'
           type='password'
         />
+        <MaButton type='submit' title='Entrar' />
       </MaForm>
     </Container>
   )
