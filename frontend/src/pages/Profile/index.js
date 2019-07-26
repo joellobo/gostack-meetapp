@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import MaInput from '~/components/MaInput'
 import Container from '~/components/Container'
 import MaButton from '~/components/MaButton'
+import AvatarInput from './components/AvatarInput'
 
 import { updateProfileRequest } from '~/store/modules/user/actions'
 
@@ -21,6 +22,7 @@ export default function Profile() {
   return (
     <Container>
       <StyledForm initialData={profile} onSubmit={handleSubmit}>
+        <AvatarInput name='avatar_id' />
         <MaInput name='name' placeholder='Insira seu nome' />
         <MaInput name='email' placeholder='Insira seu email' type='email' />
         <DivisorLine />
