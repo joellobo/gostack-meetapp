@@ -13,6 +13,12 @@ export default function SignIn() {
       <img src={logo} alt='MeetApp logo' />
       <MaForm>
         <MaInput name='name' placeholder='Nome Completo' />
+        <MaInput name='email' placeholder='Digite seu e-mail' type='email' />
+        <MaInput
+          name='password'
+          placeholder='Sua senha secreta'
+          type='password'
+        />
       </MaForm>
     </Container>
   )
