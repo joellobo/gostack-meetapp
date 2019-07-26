@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 
+import Header from '~/components/Header'
+
 import { store } from '../store'
 
 export default function RouteWrapper({
@@ -19,7 +21,17 @@ export default function RouteWrapper({
     return <Redirect to='/dashboard' />
   }
 
-  return <Route {...rest} component={props => <Component {...props} />} />
+  return (
+    <Route
+      {...rest}
+      component={props => (
+        <>
+          {signed && <Header />}
+          <Component {...props} />{' '}
+        </>
+      )}
+    />
+  )
 }
 
 RouteWrapper.propTypes = {
