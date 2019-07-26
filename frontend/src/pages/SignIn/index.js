@@ -7,7 +7,7 @@ import { signInRequest } from '~/store/modules/auth/actions'
 import MaInput from '~/components/MaInput'
 import Container from '~/components/Container'
 import MaButton from '~/components/MaButton'
-import Loader from '~/components/Loader'
+import MaLink from '~/components/MaLink'
 
 import logo from '~/assets/logo.svg'
 
@@ -40,6 +40,7 @@ export default function SignIn() {
         />
         <MaButton type='submit' title='Entrar' isLoading={loading} />
       </MaForm>
+      <MaLink to='/register' title='Criar conta grátis' />
     </Container>
   )
 }
