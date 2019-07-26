@@ -17,11 +17,6 @@ export function* signIn({ payload }) {
 
     const { token, user } = response.data
 
-    if (!user.provider) {
-      console.tron.error('Usuário não é um prestador de serviços')
-      return
-    }
-
     api.defaults.headers.Authorization = `Bearer ${token}`
 
     yield put(signInSuccess(token, user))
