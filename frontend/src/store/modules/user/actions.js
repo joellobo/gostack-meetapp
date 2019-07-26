@@ -6,6 +6,7 @@ export function updateProfileRequest(data) {
 }
 
 export function updateProfileSuccess(profile) {
+  console.tron.log(profile)
   return {
     type: '@user/UPDATE_PROFILE_SUCCESS',
     payload: { profile },
