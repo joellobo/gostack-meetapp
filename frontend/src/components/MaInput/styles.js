@@ -7,7 +7,7 @@ export const StyledInput = styled(Input)`
   width: 100%;
   height: 50px;
   border-radius: 5px;
-  margin: 10px 0;
+  margin: 5px 0;
   font-family: 'Roboto';
   font-size: 18px;
   color: rgba(255, 255, 255, 0.5);
