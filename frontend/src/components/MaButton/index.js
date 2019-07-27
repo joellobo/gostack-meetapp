@@ -13,8 +13,10 @@ export default function MaButton({ title, isLoading, ...props }) {
 MaButton.propTypes = {
   title: PropTypes.string.isRequired,
   isLoading: PropTypes.bool,
+  color: PropTypes.string,
 }
 
 MaButton.defaultProps = {
   isLoading: false,
+  color: '#e5556e',
 }

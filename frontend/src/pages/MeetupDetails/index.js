@@ -12,7 +12,7 @@ export default function MeetupDetails() {
         <Header>
           <h1>Meetup de React Native</h1>
           <div>
-            <MaButton title='Editar' />
+            <MaButton color='#4DBAF9' title='Editar' />
             <MaButton title='Cancelar' />
           </div>
         </Header>

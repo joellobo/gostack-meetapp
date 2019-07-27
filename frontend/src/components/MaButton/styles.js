@@ -7,7 +7,7 @@ export const StyledButton = styled.button`
   width: 100%;
   height: 50px;
   border: none;
-  background: #e5556e;
+  background: ${props => props.color};
   font-family: 'Roboto';
   font-size: 18px;
   font-weight: bold;
