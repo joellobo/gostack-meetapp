@@ -18,7 +18,7 @@ class MeetupController {
         },
         {
           model: User,
-          as: 'user',
+          as: 'owner',
           attributes: ['id', 'name', 'email'],
         },
       ],

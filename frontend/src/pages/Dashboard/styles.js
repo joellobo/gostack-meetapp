@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 920px;
+  padding: 120px 10px;
 
   header {
     display: flex;
