@@ -37,12 +37,16 @@ export default function Dashboard() {
     history.push('/details', { meetUp })
   }
 
+  function handleNewMeetUpClick() {
+    history.push('/register-meetup')
+  }
+
   return (
     <Container>
       <Wrapper>
         <header>
           <h1>Meus meetups</h1>
-          <MaButton title='Novo meetup' />
+          <MaButton title='Novo meetup' onClick={handleNewMeetUpClick} />
         </header>
         <ol>
           {meetUps.map(meetUp => (
