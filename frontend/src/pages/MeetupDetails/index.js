@@ -1,38 +1,57 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Container from '~/components/Container'
 import MaButton from '~/components/MaButton'
 
 import { Wrapper, Content, Header, Footer } from './styles'
 
-export default function MeetupDetails() {
+export default function MeetupDetails({ location }) {
+  const currentMeetUp = location.state.meetUp
+  console.tron.log(currentMeetUp)
+  const {
+    title,
+    description,
+    location: place,
+    formatedDate,
+    banner,
+  } = currentMeetUp
+
   return (
     <Container>
       <Wrapper>
         <Header>
-          <h1>Meetup de React Native</h1>
+          <h1>{title}</h1>
           <div>
             <MaButton color='#4DBAF9' title='Editar' />
             <MaButton title='Cancelar' />
           </div>
         </Header>
         <Content>
-          <img
-            src='https://camunda.com/img/events/meetup-example.jpg'
-            alt='Banner do meetup corrente'
-          />
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates
-            magnam maxime fugiat facilis mollitia iure molestias magni?
-            Consectetur quasi nostrum quis recusandae possimus doloribus
-            perferendis quibusdam suscipit, fugit, magni ad!
-          </p>
+          <img src={banner.url} alt='Banner do meetup detalhado' />
+          <p>{description}</p>
         </Content>
         <Footer>
-          <time>24 de Junho, às 20h</time>
-          <p>Rua Guilherme Gembala, 260</p>
+          <time>{formatedDate}</time>
+          <p>{place}</p>
         </Footer>
       </Wrapper>
     </Container>
   )
+}
+
+MeetupDetails.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      meetUp: PropTypes.shape({
+        title: PropTypes.string,
+        description: PropTypes.string,
+        location: PropTypes.string,
+        formatedDate: PropTypes.string,
+        banner: PropTypes.shape({
+          url: PropTypes.string,
+        }),
+      }),
+    }),
+  }).isRequired,
 }

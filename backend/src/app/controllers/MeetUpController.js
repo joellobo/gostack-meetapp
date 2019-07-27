@@ -14,7 +14,7 @@ class MeetupController {
         {
           model: File,
           as: 'banner',
-          attributes: ['id', 'url'],
+          attributes: ['id', 'url', 'path'],
         },
         {
           model: User,
