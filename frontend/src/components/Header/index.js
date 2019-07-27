@@ -1,20 +1,29 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import MaButton from '~/components/MaButton'
+
+import { signOut } from '~/store/modules/auth/actions'
 
 import logo from '~/assets/logo.svg'
 
 import { Container, Content, Profile } from './styles'
 
 export default function Header() {
+  const dispatch = useDispatch()
   const profile = useSelector(state => state.user.profile)
+
+  function handleLogoutClick() {
+    dispatch(signOut())
+  }
 
   return (
     <Container>
       <Content>
-        <img src={logo} alt='MeetApp logo' />
+        <Link to='/dashboard'>
+          <img src={logo} alt='MeetApp logo' />
+        </Link>
         <Profile>
           <img
             src={
@@ -28,7 +37,7 @@ export default function Header() {
             <strong>{profile.name}</strong>
             <Link to='/profile'>Meu perfil</Link>
           </div>
-          <MaButton title='Sair' />
+          <MaButton title='Sair' onClick={handleLogoutClick} />
         </Profile>
       </Content>
     </Container>
