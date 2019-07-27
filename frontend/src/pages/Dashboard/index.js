@@ -3,6 +3,7 @@ import { format, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 
 import api from '~/services/api'
+import history from '~/services/history'
 
 import { Wrapper, MeetUp } from './styles'
 import Container from '~/components/Container'
@@ -32,6 +33,10 @@ export default function Dashboard() {
     loadMeetUps()
   }, [])
 
+  function handleMeetUpClick(meetUp) {
+    history.push('/details', { meetUp })
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -41,7 +46,7 @@ export default function Dashboard() {
         </header>
         <ol>
           {meetUps.map(meetUp => (
-            <MeetUp>
+            <MeetUp onClick={() => handleMeetUpClick(meetUp)}>
               <strong>{meetUp.title}</strong>
               <time>{meetUp.formatedDate}</time>
             </MeetUp>
