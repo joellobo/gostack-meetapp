@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import Container from '~/components/Container'
 import MaButton from '~/components/MaButton'
 
+import history from '~/services/history'
+
 import { Wrapper, Content, Header, Footer } from './styles'
 
 export default function MeetupDetails({ location }) {
@@ -17,13 +19,21 @@ export default function MeetupDetails({ location }) {
     banner,
   } = currentMeetUp
 
+  function handleEditMeetUpClick() {
+    history.push('/register-meetup', { meetUp: currentMeetUp })
+  }
+
   return (
     <Container>
       <Wrapper>
         <Header>
           <h1>{title}</h1>
           <div>
-            <MaButton color='#4DBAF9' title='Editar' />
+            <MaButton
+              onClick={handleEditMeetUpClick}
+              color='#4DBAF9'
+              title='Editar'
+            />
             <MaButton title='Cancelar' />
           </div>
         </Header>

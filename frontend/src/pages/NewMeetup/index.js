@@ -2,6 +2,7 @@ import React from 'react'
 import { Textarea } from '@rocketseat/unform'
 import { format, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
+import PropTypes from 'prop-types'
 
 import Container from '~/components/Container'
 import MaInput from '~/components/MaInput'
@@ -15,9 +16,19 @@ import { StyledForm, ButtonWrapper } from './styles'
 import history from '~/services/history'
 import api from '~/services/api'
 
-export default function NewMeetup() {
+export default function NewMeetup({ location }) {
+  console.tron.log(location)
+
   async function handleSubmit(data) {
-    const resp = await api.post('meetups', data)
+    let resp = null
+
+    if (location.state) {
+      resp = await api.put('meetups', data, {
+        params: { meetUpId: location.state.meetUp.id },
+      })
+    } else {
+      resp = await api.post('meetups', data)
+    }
 
     const meetUp = {
       ...resp.data,
@@ -35,7 +46,10 @@ export default function NewMeetup() {
 
   return (
     <Container>
-      <StyledForm onSubmit={handleSubmit}>
+      <StyledForm
+        initialData={location.state ? location.state.meetUp : null}
+        onSubmit={handleSubmit}
+      >
         <BannerInput />
         <MaInput name='title' placeholder='Título do Meetup' />
         <Textarea name='description' placeholder='Descrição do Meetup' />
@@ -47,4 +61,10 @@ export default function NewMeetup() {
       </StyledForm>
     </Container>
   )
+}
+
+NewMeetup.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({ meetUp: PropTypes.object }),
+  }).isRequired,
 }

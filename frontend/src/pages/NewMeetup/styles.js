@@ -3,7 +3,6 @@ import { Form } from '@rocketseat/unform'
 
 export const StyledForm = styled(Form)`
   max-width: 940px;
-  padding: 100px 20px;
 
   .react-datepicker-wrapper,
   .react-datepicker__input-container {

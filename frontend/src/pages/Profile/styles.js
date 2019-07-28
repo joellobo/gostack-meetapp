@@ -4,7 +4,6 @@ import { Form } from '@rocketseat/unform'
 export const StyledForm = styled(Form)`
   width: 100%;
   max-width: 350px;
-  padding: 10px;
 `
 
 export const DivisorLine = styled.hr`

@@ -80,8 +80,6 @@ class MeetupController {
       ],
     })
 
-    console.log(newMeetUp)
-
     return res.json(newMeetUp)
   }
 
@@ -111,7 +109,13 @@ class MeetupController {
       })
     }
 
-    const updatedMeetUp = await meetUp.update(req.body)
+    const { id } = await meetUp.update(req.body)
+
+    const updatedMeetUp = await Meetup.findByPk(id, {
+      include: [
+        { model: File, as: 'banner', attributes: ['id', 'url', 'path'] },
+      ],
+    })
 
     return res.json(updatedMeetUp)
   }

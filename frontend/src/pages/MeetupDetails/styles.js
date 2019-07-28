@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 940px;
-  padding: 100px 20px;
 `
 
 export const Header = styled.header`
