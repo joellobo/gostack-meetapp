@@ -65,7 +65,7 @@ class MeetupController {
       })
     }
 
-    const newMeetUp = await Meetup.create({
+    const { id } = await Meetup.create({
       title,
       description,
       location,
@@ -73,6 +73,14 @@ class MeetupController {
       banner_id: bannerId,
       user_id: req.userId,
     })
+
+    const newMeetUp = await Meetup.findByPk(id, {
+      include: [
+        { model: File, as: 'banner', attributes: ['id', 'url', 'path'] },
+      ],
+    })
+
+    console.log(newMeetUp)
 
     return res.json(newMeetUp)
   }
