@@ -16,8 +16,8 @@ import api from '~/services/api'
 export default function NewMeetup() {
   async function handleSubmit(data) {
     const resp = await api.post('meetups', data)
-    console.tron.log(resp)
-    // history.push('/dashboard')
+
+    history.push('/details', { meetUp: resp.data })
   }
 
   return (
