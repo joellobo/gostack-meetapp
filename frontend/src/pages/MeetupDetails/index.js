@@ -6,6 +6,8 @@ import MaButton from '~/components/MaButton'
 
 import history from '~/services/history'
 
+import api from '~/services/api'
+
 import { Wrapper, Content, Header, Footer } from './styles'
 
 export default function MeetupDetails({ location }) {
@@ -23,6 +25,12 @@ export default function MeetupDetails({ location }) {
     history.push('/register-meetup', { meetUp: currentMeetUp })
   }
 
+  async function handleCancelMeetUpClick() {
+    await api.delete(`/meetups/${currentMeetUp.id}`)
+
+    history.push('/dashboard')
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -34,7 +42,7 @@ export default function MeetupDetails({ location }) {
               color='#4DBAF9'
               title='Editar'
             />
-            <MaButton title='Cancelar' />
+            <MaButton title='Cancelar' onClick={handleCancelMeetUpClick} />
           </div>
         </Header>
         <Content>
@@ -54,6 +62,7 @@ MeetupDetails.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       meetUp: PropTypes.shape({
+        id: PropTypes.number,
         title: PropTypes.string,
         description: PropTypes.string,
         location: PropTypes.string,
