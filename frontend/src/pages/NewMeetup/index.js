@@ -1,32 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Textarea } from '@rocketseat/unform'
 
 import Container from '~/components/Container'
 import MaInput from '~/components/MaInput'
-import BannerInput from './BannerInput'
-
-import { StyledForm, StyledDatePicker, ButtonWrapper } from './styles'
 import MaButton from '~/components/MaButton'
 
-export default function NewMeetup() {
-  const [date, setDate] = useState(new Date())
+import MaDatePicker from './components/MaDatePicker'
+import BannerInput from './components/BannerInput'
 
-  function handleChange(newDate) {
-    setDate(newDate)
+import { StyledForm, ButtonWrapper } from './styles'
+
+export default function NewMeetup() {
+  function handleSubmit(data) {
+    console.tron.log(data)
   }
 
   return (
     <Container>
-      <StyledForm>
-        <BannerInput />
+      <StyledForm onSubmit={handleSubmit}>
+        <BannerInput name='bannerId' />
         <MaInput name='title' placeholder='Título do Meetup' />
         <Textarea name='description' placeholder='Descrição do Meetup' />
-        <StyledDatePicker
-          showTimeSelect
-          dateFormat='Pp'
-          selected={date}
-          onChange={handleChange}
-        />
+        <MaDatePicker name='dateTime' />
         <MaInput name='location' placeholder='Localização' />
         <ButtonWrapper>
           <MaButton type='submit' title='Salvar meetup' />
