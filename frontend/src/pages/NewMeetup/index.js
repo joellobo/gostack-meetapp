@@ -5,7 +5,8 @@ import Container from '~/components/Container'
 import MaInput from '~/components/MaInput'
 import BannerInput from './BannerInput'
 
-import { StyledForm, StyledDatePicker } from './styles'
+import { StyledForm, StyledDatePicker, ButtonWrapper } from './styles'
+import MaButton from '~/components/MaButton'
 
 export default function NewMeetup() {
   const [date, setDate] = useState(new Date())
@@ -27,6 +28,9 @@ export default function NewMeetup() {
           onChange={handleChange}
         />
         <MaInput name='location' placeholder='Localização' />
+        <ButtonWrapper>
+          <MaButton type='submit' title='Salvar meetup' />
+        </ButtonWrapper>
       </StyledForm>
     </Container>
   )

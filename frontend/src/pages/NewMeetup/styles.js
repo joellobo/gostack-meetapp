@@ -50,3 +50,13 @@ export const StyledDatePicker = styled(DatePicker)`
     color: rgba(255, 255, 255, 0.5);
   }
 `
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+
+  button {
+    max-width: 180px;
+  }
+`
