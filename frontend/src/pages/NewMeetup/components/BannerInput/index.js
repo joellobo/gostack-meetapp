@@ -16,12 +16,13 @@ export default function BannerInput() {
   useEffect(() => {
     if (ref.current) {
       registerField({
-        name: 'banner_id',
+        name: 'bannerId',
         ref: ref.current,
         path: 'dataset.file',
       })
     }
-  }, [ref, registerField])
+    // eslint-disable-next-line
+  }, [ref.current])
 
   async function handleChange(e) {
     const data = new FormData()

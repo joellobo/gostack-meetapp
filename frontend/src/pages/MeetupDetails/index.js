@@ -8,7 +8,7 @@ import { Wrapper, Content, Header, Footer } from './styles'
 
 export default function MeetupDetails({ location }) {
   const currentMeetUp = location.state.meetUp
-  console.tron.log(currentMeetUp)
+
   const {
     title,
     description,
