@@ -53,7 +53,10 @@ export default function NewMeetup({ location }) {
         <BannerInput />
         <MaInput name='title' placeholder='Título do Meetup' />
         <Textarea name='description' placeholder='Descrição do Meetup' />
-        <MaDatePicker name='dateTime' />
+        <MaDatePicker
+          name='dateTime'
+          selectedDate={location.state && location.state.meetUp.date_time}
+        />
         <MaInput name='location' placeholder='Localização' />
         <ButtonWrapper>
           <MaButton type='submit' title='Salvar meetup' />

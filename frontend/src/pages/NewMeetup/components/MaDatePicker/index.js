@@ -1,11 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { parseISO } from 'date-fns'
 
 import { useField } from '@rocketseat/unform'
 
 import { StyledDatePicker } from './styles'
 
-export default function MaDatePicker({ name }) {
+export default function MaDatePicker({ name, selectedDate }) {
   const ref = useRef()
   const { fieldName, registerField } = useField(name)
   const [selected, setSelected] = useState(new Date())
@@ -25,7 +26,7 @@ export default function MaDatePicker({ name }) {
   return (
     <StyledDatePicker
       name={fieldName}
-      selected={selected}
+      selected={selectedDate ? parseISO(selectedDate) : selected}
       onChange={setSelected}
       ref={ref}
       placeholderText='Dia e hora de inicio do evento'
@@ -37,4 +38,9 @@ export default function MaDatePicker({ name }) {
 
 MaDatePicker.propTypes = {
   name: PropTypes.string.isRequired,
+  selectedDate: PropTypes.string,
+}
+
+MaDatePicker.defaultProps = {
+  selectedDate: null,
 }
