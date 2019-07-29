@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { MdNavigateNext } from 'react-icons/md'
 import { format, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
+import { FaPlus } from 'react-icons/fa'
 
 import api from '~/services/api'
 import history from '~/services/history'
@@ -47,7 +48,10 @@ export default function Dashboard() {
       <Wrapper>
         <header>
           <h1>Meus meetups</h1>
-          <MaButton onClick={handleNewMeetUpClick}>Novo meetup</MaButton>
+          <MaButton onClick={handleNewMeetUpClick}>
+            <FaPlus />
+            Novo meetup
+          </MaButton>
         </header>
         <ol>
           {meetUps.map(meetUp => (
