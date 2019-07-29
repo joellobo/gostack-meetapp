@@ -5,6 +5,7 @@ import pt from 'date-fns/locale/pt'
 import PropTypes from 'prop-types'
 import { MdSave } from 'react-icons/md'
 import { toast } from 'react-toastify'
+import * as Yup from 'yup'
 
 import Container from '~/components/Container'
 import MaInput from '~/components/MaInput'
@@ -17,6 +18,14 @@ import { StyledForm, ButtonWrapper } from './styles'
 
 import history from '~/services/history'
 import api from '~/services/api'
+
+// const schema = Yup.object().shape({
+//   bannerId: Yup.string().required(),
+//   title: Yup.string().required('O titulo é obrigatório'),
+//   description: Yup.string().required('A descrição é obrigatória.'),
+//   deteTime: Yup.date().required('Você precisa preencher uma data.'),
+//   location: Yup.string().required('A localização do seu meetup é obrigatória.'),
+// })
 
 export default function NewMeetup({ location }) {
   async function handleSubmit(data) {
@@ -56,6 +65,7 @@ export default function NewMeetup({ location }) {
       <StyledForm
         initialData={location.state ? location.state.meetUp : null}
         onSubmit={handleSubmit}
+        // schema={schema}
       >
         <BannerInput />
         <MaInput name='title' placeholder='Título do Meetup' />
