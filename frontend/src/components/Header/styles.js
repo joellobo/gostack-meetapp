@@ -52,6 +52,6 @@ export const Profile = styled.div`
   }
 
   button {
-    width: 72px;
+    width: 100px;
   }
 `

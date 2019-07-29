@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { MdExitToApp } from 'react-icons/md'
 
 import MaButton from '~/components/MaButton'
 
@@ -37,7 +38,10 @@ export default function Header() {
             <strong>{profile.name}</strong>
             <Link to='/profile'>Meu perfil</Link>
           </div>
-          <MaButton onClick={handleLogoutClick}>Sair</MaButton>
+          <MaButton onClick={handleLogoutClick}>
+            <MdExitToApp />
+            Sair
+          </MaButton>
         </Profile>
       </Content>
     </Container>
