@@ -50,7 +50,7 @@ export default function Dashboard() {
         </header>
         <ol>
           {meetUps.map(meetUp => (
-            <MeetUp onClick={() => handleMeetUpClick(meetUp)}>
+            <MeetUp key={meetUp.id} onClick={() => handleMeetUpClick(meetUp)}>
               <strong>{meetUp.title}</strong>
               <time>{meetUp.formatedDate}</time>
             </MeetUp>
