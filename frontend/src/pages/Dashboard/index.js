@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { MdNavigateNext } from 'react-icons/md'
 import { format, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 
@@ -52,7 +53,10 @@ export default function Dashboard() {
           {meetUps.map(meetUp => (
             <MeetUp key={meetUp.id} onClick={() => handleMeetUpClick(meetUp)}>
               <strong>{meetUp.title}</strong>
-              <time>{meetUp.formatedDate}</time>
+              <div>
+                <time>{meetUp.formatedDate}</time>
+                <MdNavigateNext color='#fff' size={30} />
+              </div>
             </MeetUp>
           ))}
         </ol>

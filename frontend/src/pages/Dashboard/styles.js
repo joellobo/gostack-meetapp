@@ -29,6 +29,7 @@ export const MeetUp = styled.li`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
   margin: 10px 0;
   border-radius: 5px;
   padding: 20px 50px;
@@ -42,9 +43,15 @@ export const MeetUp = styled.li`
     opacity: 0.9;
   }
 
+  div {
+    display: flex;
+    align-items: center;
+  }
+
   time {
     color: rgba(255, 255, 255, 0.6);
     font-size: 16px;
     font-family: 'Roboto';
+    margin: 0 10px;
   }
 `
