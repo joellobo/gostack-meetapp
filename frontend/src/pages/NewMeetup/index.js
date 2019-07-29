@@ -5,7 +5,6 @@ import pt from 'date-fns/locale/pt'
 import PropTypes from 'prop-types'
 import { MdSave } from 'react-icons/md'
 import { toast } from 'react-toastify'
-import * as Yup from 'yup'
 
 import Container from '~/components/Container'
 import MaInput from '~/components/MaInput'

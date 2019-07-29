@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MdNavigateNext } from 'react-icons/md'
+import { MdNavigateNext, MdError } from 'react-icons/md'
 import { format, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import { FaPlus } from 'react-icons/fa'
@@ -7,7 +7,7 @@ import { FaPlus } from 'react-icons/fa'
 import api from '~/services/api'
 import history from '~/services/history'
 
-import { Wrapper, MeetUp } from './styles'
+import { Wrapper, MeetUp, Alert } from './styles'
 import Container from '~/components/Container'
 import MaButton from '~/components/MaButton'
 
@@ -43,6 +43,30 @@ export default function Dashboard() {
     history.push('/register-meetup')
   }
 
+  function renderMeetUps() {
+    if (meetUps.length <= 0) {
+      return (
+        <Alert>
+          <MdError color='#fff' size={120} />
+          <h1>
+            Não existem Meetups cadastrados, cadastre um clicando em novo
+            meetup.
+          </h1>
+        </Alert>
+      )
+    }
+
+    return meetUps.map(meetUp => (
+      <MeetUp key={meetUp.id} onClick={() => handleMeetUpClick(meetUp)}>
+        <strong>{meetUp.title}</strong>
+        <div>
+          <time>{meetUp.formatedDate}</time>
+          <MdNavigateNext color='#fff' size={30} />
+        </div>
+      </MeetUp>
+    ))
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -53,17 +77,7 @@ export default function Dashboard() {
             Novo meetup
           </MaButton>
         </header>
-        <ol>
-          {meetUps.map(meetUp => (
-            <MeetUp key={meetUp.id} onClick={() => handleMeetUpClick(meetUp)}>
-              <strong>{meetUp.title}</strong>
-              <div>
-                <time>{meetUp.formatedDate}</time>
-                <MdNavigateNext color='#fff' size={30} />
-              </div>
-            </MeetUp>
-          ))}
-        </ol>
+        <ol>{renderMeetUps()}</ol>
       </Wrapper>
     </Container>
   )

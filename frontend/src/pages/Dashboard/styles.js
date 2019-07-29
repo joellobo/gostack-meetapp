@@ -55,3 +55,16 @@ export const MeetUp = styled.li`
     margin: 0 10px;
   }
 `
+
+export const Alert = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    max-width: 520px;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+  }
+`
