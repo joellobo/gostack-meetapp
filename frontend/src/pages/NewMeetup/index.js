@@ -3,6 +3,7 @@ import { Textarea } from '@rocketseat/unform'
 import { format, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import PropTypes from 'prop-types'
+import { MdSave } from 'react-icons/md'
 
 import Container from '~/components/Container'
 import MaInput from '~/components/MaInput'
@@ -59,7 +60,10 @@ export default function NewMeetup({ location }) {
         />
         <MaInput name='location' placeholder='Localização' />
         <ButtonWrapper>
-          <MaButton type='submit'>Salvar meetup</MaButton>
+          <MaButton type='submit'>
+            <MdSave />
+            Salvar meetup
+          </MaButton>
         </ButtonWrapper>
       </StyledForm>
     </Container>
