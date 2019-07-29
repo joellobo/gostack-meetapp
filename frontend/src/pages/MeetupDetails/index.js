@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { MdEdit } from 'react-icons/md'
+import { MdEdit, MdDelete } from 'react-icons/md'
 
 import Container from '~/components/Container'
 import MaButton from '~/components/MaButton'
@@ -42,7 +42,10 @@ export default function MeetupDetails({ location }) {
               <MdEdit />
               Editar
             </MaButton>
-            <MaButton onClick={handleCancelMeetUpClick}>Cancelar</MaButton>
+            <MaButton onClick={handleCancelMeetUpClick}>
+              <MdDelete />
+              Cancelar
+            </MaButton>
           </div>
         </Header>
         <Content>
