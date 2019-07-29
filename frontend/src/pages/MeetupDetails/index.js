@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { MdEdit } from 'react-icons/md'
 
 import Container from '~/components/Container'
 import MaButton from '~/components/MaButton'
@@ -37,12 +38,11 @@ export default function MeetupDetails({ location }) {
         <Header>
           <h1>{title}</h1>
           <div>
-            <MaButton
-              onClick={handleEditMeetUpClick}
-              color='#4DBAF9'
-              title='Editar'
-            />
-            <MaButton title='Cancelar' onClick={handleCancelMeetUpClick} />
+            <MaButton onClick={handleEditMeetUpClick} color='#4DBAF9'>
+              <MdEdit />
+              Editar
+            </MaButton>
+            <MaButton onClick={handleCancelMeetUpClick}>Cancelar</MaButton>
           </div>
         </Header>
         <Content>

@@ -37,7 +37,7 @@ export default function Profile() {
           name='passwordConfirmation'
           placeholder='Confirmação de senha'
         />
-        <MaButton type='submit' title='Salvar perfil' />
+        <MaButton type='submit'>Salvar perfil</MaButton>
       </StyledForm>
     </Container>
   )

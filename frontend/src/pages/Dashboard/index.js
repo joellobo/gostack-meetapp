@@ -47,7 +47,7 @@ export default function Dashboard() {
       <Wrapper>
         <header>
           <h1>Meus meetups</h1>
-          <MaButton title='Novo meetup' onClick={handleNewMeetUpClick} />
+          <MaButton onClick={handleNewMeetUpClick}>Novo meetup</MaButton>
         </header>
         <ol>
           {meetUps.map(meetUp => (

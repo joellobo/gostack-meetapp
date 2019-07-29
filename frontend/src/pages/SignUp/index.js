@@ -42,7 +42,9 @@ export default function SignUp() {
           placeholder='Sua senha secreta'
           type='password'
         />
-        <MaButton type='submit' title='Criar conta' isLoading={loading} />
+        <MaButton type='submit' isLoading={loading}>
+          Criar conta
+        </MaButton>
       </MaForm>
       <MaLink to='/' title='Já tenho login' />
     </Container>

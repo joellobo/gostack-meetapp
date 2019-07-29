@@ -59,7 +59,7 @@ export default function NewMeetup({ location }) {
         />
         <MaInput name='location' placeholder='Localização' />
         <ButtonWrapper>
-          <MaButton type='submit' title='Salvar meetup' />
+          <MaButton type='submit'>Salvar meetup</MaButton>
         </ButtonWrapper>
       </StyledForm>
     </Container>

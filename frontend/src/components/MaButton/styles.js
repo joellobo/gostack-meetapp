@@ -14,4 +14,8 @@ export const StyledButton = styled.button`
   color: #fff;
   border-radius: 5px;
   margin: 5px 0;
+
+  svg {
+    margin-right: 10px;
+  }
 `

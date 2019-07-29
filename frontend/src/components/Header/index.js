@@ -37,7 +37,7 @@ export default function Header() {
             <strong>{profile.name}</strong>
             <Link to='/profile'>Meu perfil</Link>
           </div>
-          <MaButton title='Sair' onClick={handleLogoutClick} />
+          <MaButton onClick={handleLogoutClick}>Sair</MaButton>
         </Profile>
       </Content>
     </Container>

@@ -38,7 +38,9 @@ export default function SignIn() {
           placeholder='Sua senha secreta'
           type='password'
         />
-        <MaButton type='submit' title='Entrar' isLoading={loading} />
+        <MaButton type='submit' isLoading={loading}>
+          Entrar
+        </MaButton>
       </MaForm>
       <MaLink to='/register' title='Criar conta grátis' />
     </Container>
