@@ -9,7 +9,9 @@ import { StyledDatePicker } from './styles'
 export default function MaDatePicker({ name, selectedDate }) {
   const ref = useRef()
   const { fieldName, registerField } = useField(name)
-  const [selected, setSelected] = useState(new Date())
+  const [selected, setSelected] = useState(
+    selectedDate ? parseISO(selectedDate) : new Date()
+  )
 
   useEffect(() => {
     registerField({
@@ -26,8 +28,8 @@ export default function MaDatePicker({ name, selectedDate }) {
   return (
     <StyledDatePicker
       name={fieldName}
-      selected={selectedDate ? parseISO(selectedDate) : selected}
-      onChange={setSelected}
+      selected={selected}
+      onChange={date => setSelected(date)}
       ref={ref}
       placeholderText='Dia e hora de inicio do evento'
       showTimeSelect

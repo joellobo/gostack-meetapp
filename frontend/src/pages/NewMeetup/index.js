@@ -4,6 +4,7 @@ import { format, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import PropTypes from 'prop-types'
 import { MdSave } from 'react-icons/md'
+import { toast } from 'react-toastify'
 
 import Container from '~/components/Container'
 import MaInput from '~/components/MaInput'
@@ -18,31 +19,36 @@ import history from '~/services/history'
 import api from '~/services/api'
 
 export default function NewMeetup({ location }) {
-  console.tron.log(location)
-
   async function handleSubmit(data) {
     let resp = null
 
-    if (location.state) {
-      resp = await api.put('meetups', data, {
-        params: { meetUpId: location.state.meetUp.id },
-      })
-    } else {
-      resp = await api.post('meetups', data)
-    }
+    try {
+      if (location.state) {
+        resp = await api.put('meetups', data, {
+          params: { meetUpId: location.state.meetUp.id },
+        })
+      } else {
+        resp = await api.post('meetups', data)
+      }
 
-    const meetUp = {
-      ...resp.data,
-      formatedDate: format(
-        parseISO(resp.data.date_time),
-        "d 'de' MMMM', às' HH:mm",
-        {
-          locale: pt,
-        }
-      ),
-    }
+      const meetUp = {
+        ...resp.data,
+        formatedDate: format(
+          parseISO(resp.data.date_time),
+          "d 'de' MMMM', às' HH:mm",
+          {
+            locale: pt,
+          }
+        ),
+      }
 
-    history.push('/details', { meetUp })
+      toast.success('Meetup salvo com sucesso')
+      history.push('/details', { meetUp })
+    } catch (err) {
+      toast.error(
+        'Houve um erro ao salvar seu meetup, verfique os dados preenchidos'
+      )
+    }
   }
 
   return (

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { MdEdit, MdDelete } from 'react-icons/md'
 
+import { toast } from 'react-toastify'
 import Container from '~/components/Container'
 import MaButton from '~/components/MaButton'
 
@@ -27,9 +28,13 @@ export default function MeetupDetails({ location }) {
   }
 
   async function handleCancelMeetUpClick() {
-    await api.delete(`/meetups/${currentMeetUp.id}`)
+    try {
+      await api.delete(`/meetups/${currentMeetUp.id}`)
 
-    history.push('/dashboard')
+      history.push('/dashboard')
+    } catch (err) {
+      toast.error('Houve um erro ao deletar o seu meetup, tente novamente.')
+    }
   }
 
   return (
