@@ -1,12 +1,6 @@
 import React from 'react'
-import { View } from 'react-native'
-
-import './config/ReactotronConfig'
+import { Text } from 'react-native'
 
 export default function Index() {
-  return (
-    <View>
-      <Co />
-    </View>
-  )
+  return <Text>Thats a test</Text>
 }
