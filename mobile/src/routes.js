@@ -30,7 +30,7 @@ export default (isSigned = false) =>
               activeTintColor: '#fff',
               inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
               style: {
-                backgroundColor: '#ab59c1',
+                backgroundColor: '#402845',
                 borderTopColor: 'transparent',
               },
             },
