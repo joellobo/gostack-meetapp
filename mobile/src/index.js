@@ -1,6 +1,9 @@
 import React from 'react'
-import { Text } from 'react-native'
+
+import createRouter from './routes'
 
 export default function Index() {
-  return <Text>Thats a test</Text>
+  const Routes = createRouter(false)
+
+  return <Routes />
 }
