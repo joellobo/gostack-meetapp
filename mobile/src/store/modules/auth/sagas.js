@@ -33,7 +33,6 @@ export function* signUp({ payload }) {
       name,
       email,
       password,
-      provider: true,
     })
   } catch (err) {
     Alert('Erro', 'Falha no cadastro, verifique os seus dados.')
