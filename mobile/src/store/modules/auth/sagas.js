@@ -1,9 +1,8 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects'
-import { toast } from 'react-toastify'
+import { Alert } from 'react-native'
 
 import { signInSuccess, signFailure } from './actions'
 
-import history from '../../../services/history'
 import api from '../../../services/api'
 
 export function* signIn({ payload }) {
@@ -20,10 +19,8 @@ export function* signIn({ payload }) {
     api.defaults.headers.Authorization = `Bearer ${token}`
 
     yield put(signInSuccess(token, user))
-
-    history.push('/dashboard')
   } catch (err) {
-    toast.error('Falha na autenticação, verifique seus dados.')
+    Alert.alert('Erro', 'Falha na autenticação, verifique seus dados.')
     yield put(signFailure())
   }
 }
@@ -38,11 +35,8 @@ export function* signUp({ payload }) {
       password,
       provider: true,
     })
-
-    history.push('/')
   } catch (err) {
-    toast.error('Falha no cadastro, verifique os seus dados.')
-
+    Alert('Erro', 'Falha no cadastro, verifique os seus dados.')
     yield put(signFailure())
   }
 }
@@ -58,7 +52,7 @@ export function setToken({ payload }) {
 }
 
 export function signOut() {
-  history.push('/')
+  Alert('Sucesso', 'Você foi deslogado.')
 }
 
 export default all([
