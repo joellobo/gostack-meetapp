@@ -37,6 +37,9 @@ class MeetupController {
         date_time: {
           [Op.between]: [startOfDay(searchedDate), endOfDay(searchedDate)],
         },
+        user_id: {
+          [Op.not]: req.userId,
+        },
       },
       offset: (page - 1) * 10,
       limit: 10,
