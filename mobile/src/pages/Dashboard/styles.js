@@ -18,4 +18,6 @@ export const PageTitle = styled.Text`
   margin: 0 10px;
 `
 
-export const MeetUpsList = styled.FlatList``
+export const MeetUpsList = styled.FlatList`
+  flex: 1;
+`
