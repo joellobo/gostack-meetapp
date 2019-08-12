@@ -42,7 +42,7 @@ export default function Dashboard() {
         <MeetUpsList
           data={meetups}
           keyExtractor={item => String(item.id)}
-          renderItem={({ item }) => <MeetUpCard item={item} />}
+          renderItem={({ item }) => <MeetUpCard meetup={item} />}
         />
       </Container>
     </Background>
