@@ -66,18 +66,9 @@ class MeetupController {
 
     const subscribedMeetups = subscriptions.map(sub => sub.meetup_id)
 
-    const mappedMeetUps = meetUps.map(meetup => {
-      const { banner, title, date_time: dateTime, location, owner, id } = meetup
-      return {
-        id,
-        banner,
-        title,
-        dateTime,
-        location,
-        owner,
-        isSubscribed: subscribedMeetups.includes(id),
-      }
-    })
+    const mappedMeetUps = meetUps.filter(
+      meetup => !subscribedMeetups.includes(meetup.id)
+    )
 
     return res.json(mappedMeetUps)
   }
