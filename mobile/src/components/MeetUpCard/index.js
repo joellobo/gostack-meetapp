@@ -15,7 +15,7 @@ import {
 import api from '~/services/api'
 
 export default function MeetUpCard({ meetup }) {
-  const { banner, title, date_time, location, owner, id } = meetup
+  const { banner, title, dateTime, location, owner, id } = meetup
 
   async function handleSubscription() {
     try {
@@ -38,7 +38,7 @@ export default function MeetUpCard({ meetup }) {
       <CardBody>
         <Title>{title}</Title>
         <Content>
-          <ContentText>{date_time}</ContentText>
+          <ContentText>{dateTime}</ContentText>
           <ContentText>{location}</ContentText>
           <ContentText>Organizador: {owner.name}</ContentText>
         </Content>
@@ -52,7 +52,7 @@ MeetUpCard.propTypes = {
   meetup: PropTypes.shape({
     banner: PropTypes.object,
     title: PropTypes.string,
-    date_time: PropTypes.string,
+    dateTime: PropTypes.string,
     location: PropTypes.string,
     owner: PropTypes.object,
     id: PropTypes.number,

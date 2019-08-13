@@ -4,6 +4,7 @@ import { Op } from 'sequelize'
 import Meetup from '../models/Meetup'
 import File from '../models/File'
 import User from '../models/User'
+import Subscription from '../models/Subscription'
 
 class MeetupController {
   async index(req, res) {
@@ -58,8 +59,27 @@ class MeetupController {
         },
       ],
     })
+    const subscriptions = await Subscription.findAll({
+      where: { user_id: req.userId },
+      attributes: ['id', 'meetup_id'],
+    })
 
-    return res.json(meetUps)
+    const subscribedMeetups = subscriptions.map(sub => sub.meetup_id)
+
+    const mappedMeetUps = meetUps.map(meetup => {
+      const { banner, title, date_time: dateTime, location, owner, id } = meetup
+      return {
+        id,
+        banner,
+        title,
+        dateTime,
+        location,
+        owner,
+        isSubscribed: subscribedMeetups.includes(id),
+      }
+    })
+
+    return res.json(mappedMeetUps)
   }
 
   async store(req, res) {
