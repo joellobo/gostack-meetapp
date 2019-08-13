@@ -44,10 +44,12 @@ class SubscriptionController {
   }
 
   async store(req, res) {
+    console.log(req.query)
     const { meetUpId } = req.query
 
     const meetUp = await Meetup.findByPk(meetUpId)
 
+    console.log(meetUp)
     if (!meetUp) {
       return res
         .status(404)
@@ -73,7 +75,7 @@ class SubscriptionController {
     if (subscriptionExists) {
       return res.status(400).json({
         message:
-          "You can't subscribe to MeetUp thath you already is subscribed.",
+          "You can't subscribe to a MeetUp that you already are subscribed.",
       })
     }
 

@@ -18,18 +18,18 @@ export default function MeetUpCard({ meetup }) {
   const { banner, title, date_time, location, owner, id } = meetup
 
   async function handleSubscription() {
-    console.tron.log('teste')
-    /* try {
-      await api.post('subscriptions', { params: { meetUpId: id } })
+    try {
+      await api.post('subscriptions', null, {
+        params: { meetUpId: id },
+      })
 
       Alert.alert(
         'Sucesso!',
         `Você se inscreveu no Meetup ${title} com sucesso`
       )
     } catch (err) {
-      console.tron.log(err)
-      Alert.alert('Erro!', err.message)
-    } */
+      Alert.alert('Erro!', err.response.data.message)
+    }
   }
 
   return (
