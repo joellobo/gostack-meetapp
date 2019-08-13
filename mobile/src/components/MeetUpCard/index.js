@@ -1,4 +1,5 @@
 import React from 'react'
+import { Alert } from 'react-native'
 import PropTypes from 'prop-types'
 
 import Button from '~/components/Button'
@@ -11,9 +12,24 @@ import {
   ContentText,
   CardBody,
 } from './styles'
+import api from '~/services/api'
 
 export default function MeetUpCard({ meetup }) {
-  const { banner, title, date_time, location, owner } = meetup
+  const { banner, title, date_time, location, owner, id } = meetup
+
+  async function handleSubscription() {
+    try {
+      await api.post('subscriptions', { params: { meetUpId: id } })
+
+      Alert.alert(
+        'Sucesso!',
+        `Você se inscreveu no Meetup ${title} com sucesso`
+      )
+    } catch (err) {
+      console.tron.log(err)
+      Alert.alert('Erro!', err.message)
+    }
+  }
 
   return (
     <Container>
@@ -25,7 +41,7 @@ export default function MeetUpCard({ meetup }) {
           <ContentText>{location}</ContentText>
           <ContentText>Organizador: {owner.name}</ContentText>
         </Content>
-        <Button>Realizar inscrição</Button>
+        <Button onPress={handleSubscription}>Realizar inscrição</Button>
       </CardBody>
     </Container>
   )
@@ -38,5 +54,6 @@ MeetUpCard.propTypes = {
     date_time: PropTypes.string,
     location: PropTypes.string,
     owner: PropTypes.object,
+    id: PropTypes.number,
   }).isRequired,
 }
