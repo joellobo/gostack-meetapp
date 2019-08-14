@@ -51,7 +51,7 @@ export function setToken({ payload }) {
 }
 
 export function signOut() {
-  Alert('Sucesso', 'Você foi deslogado.')
+  Alert.alert('Sucesso', 'Você foi deslogado.')
 }
 
 export default all([

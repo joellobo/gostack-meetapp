@@ -4,10 +4,18 @@ import { useSelector, useDispatch } from 'react-redux'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { updateProfileRequest } from '~/store/modules/user/actions'
+import { signOut } from '~/store/modules/auth/actions'
 
 import Background from '~/components/Background'
 
-import { Container, Form, FormInput, SubmitButton, Divisor } from './styles'
+import {
+  Container,
+  Form,
+  FormInput,
+  SubmitButton,
+  Divisor,
+  LogouButton,
+} from './styles'
 
 export default function Profile() {
   const dispatch = useDispatch()
@@ -94,12 +102,15 @@ export default function Profile() {
             placeholder='Confimação da nova senha'
             ref={passwordConfirmationRef}
             returnKeyType='send'
-            onSubmitEditing={() => {}}
+            onSubmitEditing={handleSubmit}
             value={passwordConfirmation}
             onChangeText={setPasswordConfirmation}
           />
           <SubmitButton onPress={handleSubmit}>Salvar perfil</SubmitButton>
         </Form>
+        <LogouButton onPress={() => dispatch(signOut())}>
+          Sair do Meetapp
+        </LogouButton>
       </Container>
     </Background>
   )
