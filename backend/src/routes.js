@@ -39,6 +39,7 @@ routes.delete('/meetups/:id', authMiddleware, MeetupController.delete)
 
 routes.post('/subscriptions', authMiddleware, SubscriptionController.store)
 routes.get('/subscriptions', authMiddleware, SubscriptionController.index)
+routes.delete('/subscriptions', authMiddleware, SubscriptionController.delete)
 
 routes.post('/sessions', validateSessionStoreFields, SessionController.store)
 

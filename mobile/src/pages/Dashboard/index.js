@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react'
-import { TouchableOpacity, Text } from 'react-native'
+import { TouchableOpacity, Alert } from 'react-native'
 import { format, subDays, addDays } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 
@@ -44,6 +44,21 @@ export default function Dashboard() {
     setDate(addDays(date, 1))
   }
 
+  async function handleSubscription({ id, title }) {
+    try {
+      await api.post('subscriptions', null, {
+        params: { meetUpId: id },
+      })
+
+      Alert.alert(
+        'Sucesso!',
+        `Você se inscreveu no Meetup ${title} com sucesso`
+      )
+    } catch (err) {
+      Alert.alert('Erro!', err.response.data.message)
+    }
+  }
+
   return (
     <Background>
       <Container>
@@ -59,7 +74,13 @@ export default function Dashboard() {
         <MeetUpsList
           data={meetups}
           keyExtractor={item => String(item.id)}
-          renderItem={({ item }) => <MeetUpCard meetup={item} />}
+          renderItem={({ item }) => (
+            <MeetUpCard
+              meetup={item}
+              onMainButtonPress={() => handleSubscription(item)}
+              mainButtonText='Realizar inscrição'
+            />
+          )}
           ListEmptyComponent={<EmptyList />}
         />
       </Container>

@@ -32,7 +32,7 @@ class SubscriptionController {
             {
               model: File,
               as: 'banner',
-              attributes: ['id', 'url'],
+              attributes: ['id', 'url', 'path'],
             },
           ],
         },
@@ -44,12 +44,10 @@ class SubscriptionController {
   }
 
   async store(req, res) {
-    console.log(req.query)
     const { meetUpId } = req.query
 
     const meetUp = await Meetup.findByPk(meetUpId)
 
-    console.log(meetUp)
     if (!meetUp) {
       return res
         .status(404)
@@ -135,6 +133,30 @@ class SubscriptionController {
     await Queue.add(SubscriptionMail.key, { subscription: mailOrganizedData })
 
     return res.json({ subscription })
+  }
+
+  async delete(req, res) {
+    const { meetUpId } = req.query
+
+    const meetUp = await Meetup.findByPk(meetUpId)
+
+    if (!meetUp) {
+      return res
+        .status(404)
+        .json({ message: `MeetUp with id ${meetUpId} not found.` })
+    }
+
+    if (isBefore(parseISO(meetUp.date_time), new Date())) {
+      return res.status(400).json({
+        message: "You can't cancel the subscription of past MeetUps.",
+      })
+    }
+
+    Subscription.destroy({ where: { meetup_id: meetUpId } })
+
+    return res.json({
+      message: `Subscription to meetup with id ${meetUpId} was deleted.`,
+    })
   }
 }
 

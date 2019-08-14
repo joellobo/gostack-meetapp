@@ -12,4 +12,5 @@ export const EmptyText = styled.Text`
   font-size: 25px;
   max-width: 60%;
   text-align: center;
+  padding: 20px 0;
 `

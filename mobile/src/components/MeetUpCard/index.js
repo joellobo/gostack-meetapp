@@ -1,5 +1,4 @@
 import React from 'react'
-import { Alert } from 'react-native'
 import PropTypes from 'prop-types'
 
 import Button from '~/components/Button'
@@ -12,25 +11,13 @@ import {
   ContentText,
   CardBody,
 } from './styles'
-import api from '~/services/api'
 
-export default function MeetUpCard({ meetup }) {
-  const { banner, title, date_time, location, owner, id } = meetup
-
-  async function handleSubscription() {
-    try {
-      await api.post('subscriptions', null, {
-        params: { meetUpId: id },
-      })
-
-      Alert.alert(
-        'Sucesso!',
-        `Você se inscreveu no Meetup ${title} com sucesso`
-      )
-    } catch (err) {
-      Alert.alert('Erro!', err.response.data.message)
-    }
-  }
+export default function MeetUpCard({
+  meetup,
+  onMainButtonPress,
+  mainButtonText,
+}) {
+  const { banner, title, date_time, location, owner } = meetup
 
   return (
     <Container>
@@ -42,7 +29,7 @@ export default function MeetUpCard({ meetup }) {
           <ContentText>{location}</ContentText>
           <ContentText>Organizador: {owner.name}</ContentText>
         </Content>
-        <Button onPress={handleSubscription}>Realizar inscrição</Button>
+        <Button onPress={onMainButtonPress}>{mainButtonText}</Button>
       </CardBody>
     </Container>
   )
@@ -57,4 +44,10 @@ MeetUpCard.propTypes = {
     owner: PropTypes.object,
     id: PropTypes.number,
   }).isRequired,
+  onMainButtonPress: PropTypes.func,
+  mainButtonText: PropTypes.string.isRequired,
+}
+
+MeetUpCard.defaultProps = {
+  onMainButtonPress: () => {},
 }
