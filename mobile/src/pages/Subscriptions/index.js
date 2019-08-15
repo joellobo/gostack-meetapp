@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { withNavigationFocus } from 'react-navigation'
 import { View, Alert } from 'react-native'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -10,7 +11,7 @@ import { Container, MeetUpsList } from './styles'
 
 import api from '~/services/api'
 
-export default function Subscriptions() {
+function Subscriptions({ isFocused }) {
   const [meetups, setMeetups] = useState([])
 
   useEffect(() => {
@@ -22,14 +23,18 @@ export default function Subscriptions() {
       setMeetups(subscribedMeetups)
     }
 
-    getSubscribedMeetups()
-  }, [])
+    if (isFocused) {
+      getSubscribedMeetups()
+    }
+  }, [isFocused])
 
   async function handleCancelClick({ id, title }) {
     try {
       await api.delete('subscriptions', {
         params: { meetUpId: id },
       })
+
+      setMeetups(meetups.filter(meetup => meetup.id !== id))
 
       Alert.alert('Sucesso!', `Sua inscrição no meetup ${title} foi cancelada.`)
     } catch (err) {
@@ -63,3 +68,5 @@ Subscriptions.navigationOptions = {
     <Icon name='playlist-add-check' size={30} color={tintColor} />
   ),
 }
+
+export default withNavigationFocus(Subscriptions)

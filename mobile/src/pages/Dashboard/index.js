@@ -50,6 +50,8 @@ export default function Dashboard() {
         params: { meetUpId: id },
       })
 
+      setMeetups(meetups.filter(meetup => meetup.id !== id))
+
       Alert.alert(
         'Sucesso!',
         `Você se inscreveu no Meetup ${title} com sucesso`
