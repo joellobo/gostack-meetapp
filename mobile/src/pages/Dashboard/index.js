@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react'
+import { withNavigationFocus } from 'react-navigation'
 import { TouchableOpacity, Alert } from 'react-native'
 import { format, subDays, addDays } from 'date-fns'
 import pt from 'date-fns/locale/pt'
@@ -13,7 +14,7 @@ import EmptyList from './components/EmptyList'
 
 import { Container, MeetUpsList, PageTitleContainer, PageTitle } from './styles'
 
-export default function Dashboard() {
+function Dashboard({ isFocused }) {
   const [meetups, setMeetups] = useState([])
   const [date, setDate] = useState(new Date())
 
@@ -33,8 +34,10 @@ export default function Dashboard() {
       setMeetups(response.data)
     }
 
-    getMeetups()
-  }, [date])
+    if (isFocused) {
+      getMeetups()
+    }
+  }, [date, isFocused])
 
   function handlePrevDay() {
     setDate(subDays(date, 1))
@@ -96,3 +99,5 @@ Dashboard.navigationOptions = {
     <Icon name='event' size={20} color={tintColor} />
   ),
 }
+
+export default withNavigationFocus(Dashboard)
