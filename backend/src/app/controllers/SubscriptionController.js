@@ -1,5 +1,4 @@
 import { isBefore, parseISO } from 'date-fns'
-import { Op } from 'sequelize'
 
 import Subscription from '../models/Subscription'
 import Meetup from '../models/Meetup'
@@ -18,11 +17,6 @@ class SubscriptionController {
           model: Meetup,
           as: 'meetup',
           attributes: ['id', 'title', 'description', 'location', 'date_time'],
-          where: {
-            date_time: {
-              [Op.gt]: new Date(),
-            },
-          },
           include: [
             {
               model: User,
@@ -54,7 +48,7 @@ class SubscriptionController {
         .json({ message: `MeetUp with id ${meetUpId} not found.` })
     }
 
-    if (isBefore(parseISO(meetUp.date_time), new Date())) {
+    if (isBefore(new Date(meetUp.date_time), new Date())) {
       return res.status(400).json({
         message: "You can't subscribe to past MeetUps.",
       })
@@ -138,15 +132,18 @@ class SubscriptionController {
   async delete(req, res) {
     const { meetUpId } = req.query
 
-    const meetUp = await Meetup.findByPk(meetUpId)
+    const meetUp = Meetup.findByPk(meetUpId)
+    const subscription = await Subscription.findOne({
+      where: { user_id: req.userId, meetup_id: meetUpId },
+    })
 
-    if (!meetUp) {
-      return res
-        .status(404)
-        .json({ message: `MeetUp with id ${meetUpId} not found.` })
+    if (!subscription) {
+      return res.status(404).json({
+        message: `Subscription to MeetUp with id ${meetUpId} not found.`,
+      })
     }
 
-    if (isBefore(parseISO(meetUp.date_time), new Date())) {
+    if (isBefore(new Date(meetUp.date_time), new Date())) {
       return res.status(400).json({
         message: "You can't cancel the subscription of past MeetUps.",
       })

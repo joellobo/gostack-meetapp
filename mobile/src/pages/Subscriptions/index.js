@@ -19,8 +19,6 @@ export default function Subscriptions() {
 
       const subscribedMeetups = response.data.map(sub => ({ ...sub.meetup }))
 
-      console.tron.log(subscribedMeetups)
-
       setMeetups(subscribedMeetups)
     }
 
