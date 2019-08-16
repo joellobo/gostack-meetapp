@@ -17,7 +17,7 @@ export default function MeetUpCard({
   onMainButtonPress,
   mainButtonText,
 }) {
-  const { banner, title, date_time, location, owner } = meetup
+  const { banner, title, formattedDate, location, owner } = meetup
 
   return (
     <Container>
@@ -25,7 +25,7 @@ export default function MeetUpCard({
       <CardBody>
         <Title>{title}</Title>
         <Content>
-          <ContentText>{date_time}</ContentText>
+          <ContentText>{formattedDate}</ContentText>
           <ContentText>{location}</ContentText>
           <ContentText>Organizador: {owner.name}</ContentText>
         </Content>
@@ -39,7 +39,7 @@ MeetUpCard.propTypes = {
   meetup: PropTypes.shape({
     banner: PropTypes.object,
     title: PropTypes.string,
-    date_time: PropTypes.string,
+    formattedDate: PropTypes.string,
     location: PropTypes.string,
     owner: PropTypes.object,
     id: PropTypes.number,

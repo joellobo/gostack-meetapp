@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { withNavigationFocus } from 'react-navigation'
+import { format, parseISO } from 'date-fns'
 import { View, Alert } from 'react-native'
+import pt from 'date-fns/locale/pt'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -18,7 +20,14 @@ function Subscriptions({ isFocused }) {
     async function getSubscribedMeetups() {
       const response = await api.get('subscriptions')
 
-      const subscribedMeetups = response.data.map(sub => ({ ...sub.meetup }))
+      const subscribedMeetups = response.data.map(sub => ({
+        ...sub.meetup,
+        formattedDate: format(
+          parseISO(sub.meetup.date_time),
+          "d 'de' MMMM 'de' yyyy 'às' HH:hh",
+          { locale: pt }
+        ),
+      }))
 
       setMeetups(subscribedMeetups)
     }

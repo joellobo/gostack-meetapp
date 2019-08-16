@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import { withNavigationFocus } from 'react-navigation'
 import { TouchableOpacity, Alert } from 'react-native'
-import { format, subDays, addDays } from 'date-fns'
+import { format, subDays, addDays, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -31,7 +31,16 @@ function Dashboard({ isFocused }) {
         },
       })
 
-      setMeetups(response.data)
+      const meetUpsWithFormattedDate = response.data.map(meetup => ({
+        ...meetup,
+        formattedDate: format(
+          parseISO(meetup.date_time),
+          "d 'de' MMMM 'de' yyyy 'às' HH:hh",
+          { locale: pt }
+        ),
+      }))
+
+      setMeetups(meetUpsWithFormattedDate)
     }
 
     if (isFocused) {
