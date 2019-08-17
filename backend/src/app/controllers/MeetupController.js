@@ -154,6 +154,14 @@ class MeetupController {
       return res.status(401).json({ message: "You can't delete this MeetUp." })
     }
 
+    const isMeetUpBeforeNow = isBefore(new Date(meetUp.date_time), new Date())
+
+    if (isMeetUpBeforeNow) {
+      return res.status(400).json({
+        message: "You can't register MeetUps with dates befores now.",
+      })
+    }
+
     Meetup.destroy({ where: { id: meetUpId } })
 
     return res.json({
