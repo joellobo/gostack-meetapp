@@ -5,7 +5,7 @@ import api from '~/services/api'
 
 import { Container } from './styles'
 
-export default function BannerInput() {
+export default function BannerInput({ name }) {
   const { defaultValue, registerField } = useField('banner')
 
   const [preview, setPreview] = useState(defaultValue && defaultValue.url)
@@ -16,7 +16,7 @@ export default function BannerInput() {
   useEffect(() => {
     if (ref.current) {
       registerField({
-        name: 'bannerId',
+        name,
         ref: ref.current,
         path: 'dataset.file',
       })
