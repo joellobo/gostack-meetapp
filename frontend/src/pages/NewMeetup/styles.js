@@ -9,6 +9,12 @@ export const StyledForm = styled(Form)`
     width: 100%;
   }
 
+  span {
+    font-family: 'Roboto';
+    font-size: 14px;
+    color: #e5556e;
+  }
+
   textarea {
     width: 100%;
     height: 250px;

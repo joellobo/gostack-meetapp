@@ -4,6 +4,12 @@ import { Form } from '@rocketseat/unform'
 export const StyledForm = styled(Form)`
   width: 100%;
   max-width: 350px;
+
+  span {
+    font-family: 'Roboto';
+    font-size: 14px;
+    color: #e5556e;
+  }
 `
 
 export const DivisorLine = styled.hr`

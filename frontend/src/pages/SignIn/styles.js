@@ -8,4 +8,10 @@ export const MaForm = styled(Form)`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  span {
+    font-family: 'Roboto';
+    font-size: 14px;
+    color: #e5556e;
+  }
 `
