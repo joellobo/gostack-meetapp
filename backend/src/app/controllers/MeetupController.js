@@ -43,7 +43,7 @@ class MeetupController {
         },
       },
       offset: (page - 1) * 10,
-      limit: 10,
+      limit: 5,
       order: ['date_time'],
       attributes: ['id', 'title', 'description', 'location', 'date_time'],
       include: [

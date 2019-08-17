@@ -17,6 +17,7 @@ import { Container, MeetUpsList, PageTitleContainer, PageTitle } from './styles'
 function Dashboard({ isFocused }) {
   const [meetups, setMeetups] = useState([])
   const [date, setDate] = useState(new Date())
+  const [page, setPage] = useState(1)
 
   const dateFormatted = useMemo(
     () => format(date, "d 'de' MMMM", { locale: pt }),
@@ -73,6 +74,20 @@ function Dashboard({ isFocused }) {
     }
   }
 
+  async function loadMoreMeetUps() {
+    const nextPage = page + 1
+
+    const response = await api.get('meetups/date', {
+      params: {
+        date: date.toISOString(),
+        page: nextPage,
+      },
+    })
+
+    setMeetups([...meetups, ...response.data])
+    setPage(nextPage)
+  }
+
   return (
     <Background>
       <Container>
@@ -88,6 +103,8 @@ function Dashboard({ isFocused }) {
         <MeetUpsList
           data={meetups}
           keyExtractor={item => String(item.id)}
+          onEndReachedThreshold={0.2}
+          onEndReached={loadMoreMeetUps}
           renderItem={({ item }) => (
             <MeetUpCard
               meetup={item}
