@@ -24,6 +24,17 @@ function Dashboard({ isFocused }) {
     [date]
   )
 
+  function formatMeetUpsDate(noFormattedMeetups) {
+    return noFormattedMeetups.map(meetup => ({
+      ...meetup,
+      formattedDate: format(
+        parseISO(meetup.date_time),
+        "d 'de' MMMM 'de' yyyy 'às' HH:hh",
+        { locale: pt }
+      ),
+    }))
+  }
+
   useEffect(() => {
     async function getMeetups() {
       const response = await api.get('meetups/date', {
@@ -32,16 +43,7 @@ function Dashboard({ isFocused }) {
         },
       })
 
-      const meetUpsWithFormattedDate = response.data.map(meetup => ({
-        ...meetup,
-        formattedDate: format(
-          parseISO(meetup.date_time),
-          "d 'de' MMMM 'de' yyyy 'às' HH:hh",
-          { locale: pt }
-        ),
-      }))
-
-      setMeetups(meetUpsWithFormattedDate)
+      setMeetups(formatMeetUpsDate(response.data))
     }
 
     if (isFocused) {
@@ -84,7 +86,7 @@ function Dashboard({ isFocused }) {
       },
     })
 
-    setMeetups([...meetups, ...response.data])
+    setMeetups([...meetups, ...formatMeetUpsDate(response.data)])
     setPage(nextPage)
   }
 
