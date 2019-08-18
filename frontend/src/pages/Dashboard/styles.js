@@ -68,3 +68,10 @@ export const Alert = styled.div`
     margin-top: 20px;
   }
 `
+
+export const LoaderContainer = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  padding-top: 60px;
+`

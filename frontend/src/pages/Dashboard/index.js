@@ -7,11 +7,13 @@ import { FaPlus } from 'react-icons/fa'
 import api from '~/services/api'
 import history from '~/services/history'
 
-import { Wrapper, MeetUp, Alert } from './styles'
+import { Wrapper, MeetUp, Alert, LoaderContainer } from './styles'
 import Container from '~/components/Container'
 import MaButton from '~/components/MaButton'
+import Loader from '~/components/Loader'
 
 export default function Dashboard() {
+  const [isLoading, setIsLoadig] = useState(true)
   const [meetUps, setMeetUps] = useState([])
 
   useEffect(() => {
@@ -30,6 +32,7 @@ export default function Dashboard() {
       }))
 
       setMeetUps(data)
+      setIsLoadig(false)
     }
 
     loadMeetUps()
@@ -44,6 +47,14 @@ export default function Dashboard() {
   }
 
   function renderMeetUps() {
+    if (isLoading) {
+      return (
+        <LoaderContainer>
+          <Loader size='30px' />
+        </LoaderContainer>
+      )
+    }
+
     if (meetUps.length <= 0) {
       return (
         <Alert>
