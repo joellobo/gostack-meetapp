@@ -5,8 +5,8 @@ import api from '~/services/api'
 
 import { Container } from './styles'
 
-export default function BannerInput({ name }) {
-  const { defaultValue, registerField } = useField('banner')
+export default function BannerInput() {
+  const { defaultValue, registerField } = useField('bannerId')
 
   const [preview, setPreview] = useState(defaultValue && defaultValue.url)
   const [file, setFile] = useState(defaultValue && defaultValue.id)
@@ -16,7 +16,7 @@ export default function BannerInput({ name }) {
   useEffect(() => {
     if (ref.current) {
       registerField({
-        name,
+        name: 'bannerId',
         ref: ref.current,
         path: 'dataset.file',
       })
@@ -39,7 +39,7 @@ export default function BannerInput({ name }) {
 
   return (
     <Container>
-      <label htmlFor='banner'>
+      <label htmlFor='bannerId'>
         {preview ? (
           <img src={preview} alt='' />
         ) : (
@@ -48,7 +48,7 @@ export default function BannerInput({ name }) {
 
         <input
           type='file'
-          id='banner'
+          id='bannerId'
           accept='image/*'
           onChange={handleChange}
           data-file={file}

@@ -20,10 +20,10 @@ import history from '~/services/history'
 import api from '~/services/api'
 
 const schema = Yup.object().shape({
-  // bannerId: Yup.string().required('A imagem é obrigatória'),
+  bannerId: Yup.string(),
   title: Yup.string().required('O titulo é obrigatório'),
   description: Yup.string().required('A descrição é obrigatória.'),
-  deteTime: Yup.date().required('Você precisa preencher uma data.'),
+  dateTime: Yup.date().required('Você precisa preencher uma data.'),
   location: Yup.string().required('A localização do seu meetup é obrigatória.'),
 })
 
@@ -56,7 +56,9 @@ export default function NewMeetup({ location }) {
       history.push('/details', { meetUp })
     } catch (err) {
       toast.error(
-        'Houve um erro ao salvar seu meetup, verfique os dados preenchidos'
+        err.response
+          ? err.response.data.message
+          : 'Houve um erro ao salvar seu meetup, verfique os dados preenchidos'
       )
     }
   }

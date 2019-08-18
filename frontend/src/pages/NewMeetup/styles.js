@@ -42,6 +42,6 @@ export const ButtonWrapper = styled.div`
   margin: 20px 0;
 
   button {
-    max-width: 180px;
+    max-width: 200px;
   }
 `
