@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Yup from 'yup'
 
@@ -34,11 +34,18 @@ const schema = Yup.object().shape({
 
 export default function Profile() {
   const dispatch = useDispatch()
+  const [oldPassword, setOldPassword] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
   const profile = useSelector(state => state.user.profile)
 
   function handleSubmit(data) {
     dispatch(updateProfileRequest(data))
+
+    setOldPassword('')
+    setPassword('')
+    setPasswordConfirmation('')
   }
 
   return (
@@ -52,12 +59,22 @@ export default function Profile() {
           type='password'
           name='oldPassword'
           placeholder='Sua senha atual'
+          value={oldPassword}
+          onChange={e => setOldPassword(e.target.value)}
         />
-        <MaInput type='password' name='password' placeholder='Nova senha' />
+        <MaInput
+          type='password'
+          name='password'
+          placeholder='Nova senha'
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
         <MaInput
           type='password'
           name='passwordConfirmation'
           placeholder='Confirmação de senha'
+          value={passwordConfirmation}
+          onChange={e => setPasswordConfirmation(e.target.value)}
         />
         <MaButton type='submit'>Salvar perfil</MaButton>
       </StyledForm>
