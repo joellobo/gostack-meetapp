@@ -6,7 +6,7 @@ import api from '~/services/api'
 import { Container } from './styles'
 
 export default function BannerInput() {
-  const { defaultValue, registerField } = useField('bannerId')
+  const { defaultValue, registerField } = useField('banner')
 
   const [preview, setPreview] = useState(defaultValue && defaultValue.url)
   const [file, setFile] = useState(defaultValue && defaultValue.id)
@@ -39,7 +39,7 @@ export default function BannerInput() {
 
   return (
     <Container>
-      <label htmlFor='bannerId'>
+      <label htmlFor='banner'>
         {preview ? (
           <img src={preview} alt='' />
         ) : (
@@ -48,7 +48,7 @@ export default function BannerInput() {
 
         <input
           type='file'
-          id='bannerId'
+          id='banner'
           accept='image/*'
           onChange={handleChange}
           data-file={file}

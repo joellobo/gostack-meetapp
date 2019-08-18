@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { withNavigationFocus } from 'react-navigation'
 import { format, parseISO } from 'date-fns'
-import { View, Alert } from 'react-native'
+import { Alert } from 'react-native'
 import pt from 'date-fns/locale/pt'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import Background from '~/components/Background'
 import MeetUpCard from '~/components/MeetUpCard'
+import EmptySubscriptionList from './components/EmptySubscriptionsList'
 
 import { Container, MeetUpsList } from './styles'
 
@@ -64,7 +65,7 @@ function Subscriptions({ isFocused }) {
               onMainButtonPress={() => handleCancelClick(item)}
             />
           )}
-          ListEmptyComponent={<View />}
+          ListEmptyComponent={<EmptySubscriptionList />}
         />
       </Container>
     </Background>

@@ -34,7 +34,12 @@ routes.post(
   validateMeetUpStoreFields,
   MeetupController.store
 )
-routes.put('/meetups', authMiddleware, MeetupController.update)
+routes.put(
+  '/meetups',
+  authMiddleware,
+  validateMeetUpStoreFields,
+  MeetupController.update
+)
 routes.delete('/meetups/:id', authMiddleware, MeetupController.delete)
 
 routes.post('/subscriptions', authMiddleware, SubscriptionController.store)

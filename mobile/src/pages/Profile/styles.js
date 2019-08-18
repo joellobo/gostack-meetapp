@@ -4,7 +4,7 @@ import { Platform } from 'react-native'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.ScrollView`
   flex: 1;
   padding: 0 20px;
 `

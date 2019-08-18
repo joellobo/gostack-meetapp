@@ -29,7 +29,6 @@ const schema = Yup.object().shape({
 
 export default function NewMeetup({ location }) {
   async function handleSubmit(data) {
-    console.tron.log(data)
     let resp = null
 
     try {
@@ -70,7 +69,7 @@ export default function NewMeetup({ location }) {
         onSubmit={handleSubmit}
         schema={schema}
       >
-        <BannerInput name='bannerId' />
+        <BannerInput />
         <MaInput name='title' placeholder='Título do Meetup' />
         <Textarea name='description' placeholder='Descrição do Meetup' />
         <MaDatePicker

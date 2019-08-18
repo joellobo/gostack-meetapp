@@ -119,10 +119,10 @@ class MeetupController {
 
     const { dateTime } = req.body
 
-    const isMeetUpBeforeNow =
+    const isNewDateBeforeNow =
       dateTime && isBefore(parseISO(dateTime), new Date())
 
-    if (isMeetUpBeforeNow) {
+    if (isNewDateBeforeNow) {
       return res.status(400).json({
         message: "You can't register MeetUps with dates befores now.",
       })
@@ -158,7 +158,7 @@ class MeetupController {
 
     if (isMeetUpBeforeNow) {
       return res.status(400).json({
-        message: "You can't register MeetUps with dates befores now.",
+        message: "You can't delete MeetUps with dates befores now.",
       })
     }
 

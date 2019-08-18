@@ -1,4 +1,4 @@
-import { isBefore, parseISO } from 'date-fns'
+import { isBefore } from 'date-fns'
 
 import Subscription from '../models/Subscription'
 import Meetup from '../models/Meetup'
@@ -10,7 +10,9 @@ import SubscriptionMail from '../jobs/SubscriptionMail'
 class SubscriptionController {
   async index(req, res) {
     const subscriptions = await Subscription.findAll({
-      where: { user_id: req.userId },
+      where: {
+        user_id: req.userId,
+      },
       attributes: ['id'],
       include: [
         {
@@ -34,7 +36,11 @@ class SubscriptionController {
       order: [['meetup', 'date_time']],
     })
 
-    return res.json(subscriptions)
+    return res.json(
+      subscriptions.filter(sub =>
+        isBefore(new Date(), new Date(sub.meetup.date_time))
+      )
+    )
   }
 
   async store(req, res) {
