@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { withNavigationFocus } from 'react-navigation'
 import { format, parseISO } from 'date-fns'
-import { Alert } from 'react-native'
+import { Alert, ActivityIndicator } from 'react-native'
 import pt from 'date-fns/locale/pt'
 import PropTypes from 'prop-types'
 
@@ -11,7 +11,7 @@ import Background from '~/components/Background'
 import MeetUpCard from '~/components/MeetUpCard'
 import EmptySubscriptionList from './components/EmptySubscriptionsList'
 
-import { Container, MeetUpsList } from './styles'
+import { Container, MeetUpsList, LoaderContainer } from './styles'
 
 import api from '~/services/api'
 
@@ -21,6 +21,7 @@ function Subscriptions({ isFocused }) {
 
   useEffect(() => {
     async function getSubscribedMeetups() {
+      setIsLoading(true)
       const response = await api.get('subscriptions')
 
       const subscribedMeetups = response.data.map(sub => ({
@@ -33,6 +34,7 @@ function Subscriptions({ isFocused }) {
       }))
 
       setMeetups(subscribedMeetups)
+      setIsLoading(false)
     }
 
     if (isFocused) {
@@ -54,22 +56,34 @@ function Subscriptions({ isFocused }) {
     }
   }
 
+  function renderSubscriptions() {
+    if (isLoading) {
+      return (
+        <LoaderContainer>
+          <ActivityIndicator size='large' color='#fff' />
+        </LoaderContainer>
+      )
+    }
+
+    return (
+      <MeetUpsList
+        data={meetups}
+        keyExtractor={item => String(item.id)}
+        renderItem={({ item }) => (
+          <MeetUpCard
+            meetup={item}
+            mainButtonText='Cancelar inscrição'
+            onMainButtonPress={() => handleCancelClick(item)}
+          />
+        )}
+        ListEmptyComponent={<EmptySubscriptionList />}
+      />
+    )
+  }
+
   return (
     <Background>
-      <Container>
-        <MeetUpsList
-          data={meetups}
-          keyExtractor={item => String(item.id)}
-          renderItem={({ item }) => (
-            <MeetUpCard
-              meetup={item}
-              mainButtonText='Cancelar inscrição'
-              onMainButtonPress={() => handleCancelClick(item)}
-            />
-          )}
-          ListEmptyComponent={<EmptySubscriptionList />}
-        />
-      </Container>
+      <Container>{renderSubscriptions()}</Container>
     </Background>
   )
 }
