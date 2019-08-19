@@ -17,6 +17,7 @@ import api from '~/services/api'
 
 function Subscriptions({ isFocused }) {
   const [meetups, setMeetups] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     async function getSubscribedMeetups() {

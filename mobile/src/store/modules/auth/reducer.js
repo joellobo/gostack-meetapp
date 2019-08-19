@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   token: null,
   figned: false,
   loading: false,
+  failure: false,
 }
 
 export default function auth(state = INITIAL_STATE, action) {
@@ -20,6 +21,7 @@ export default function auth(state = INITIAL_STATE, action) {
         break
       }
       case '@auth/SIGN_FAILURE': {
+        draft.failure = true
         draft.loading = false
         break
       }

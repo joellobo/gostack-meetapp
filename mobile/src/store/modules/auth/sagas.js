@@ -35,7 +35,7 @@ export function* signUp({ payload }) {
       password,
     })
   } catch (err) {
-    Alert('Erro', 'Falha no cadastro, verifique os seus dados.')
+    Alert.alert('Erro', 'Falha no cadastro, verifique os seus dados.')
     yield put(signFailure())
   }
 }

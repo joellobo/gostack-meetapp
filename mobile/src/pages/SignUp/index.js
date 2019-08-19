@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Image } from 'react-native'
+import { Image, Alert } from 'react-native'
 import PropTypes from 'prop-types'
 
 import { signUpRequest } from '~/store/modules/auth/actions'
@@ -23,16 +23,22 @@ export default function SignUp({ navigation }) {
   const emailRef = useRef()
   const passwordRef = useRef()
 
-  const loading = useSelector(state => state.auth.loading)
+  const { loading, failure } = useSelector(state => state.auth)
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   async function handleSubmit() {
-    await dispatch(signUpRequest(name, email, password))
+    if (email && password && name) {
+      await dispatch(signUpRequest(name, email, password))
 
-    navigation.navigate('SignIn')
+      if (!failure) {
+        navigation.navigate('SignIn')
+      }
+    } else {
+      Alert.alert('Erro.', 'Parce que você não preencheu todos os campos.')
+    }
   }
 
   return (
