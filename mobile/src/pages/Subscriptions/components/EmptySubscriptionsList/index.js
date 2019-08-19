@@ -11,7 +11,9 @@ export default function EmptyList() {
         color='rgba(255, 255, 255, 0.6)'
         size={120}
       />
-      <EmptyText>Parece que você não se inscreveu em algum Meetup ainda.</EmptyText>
+      <EmptyText>
+        Parece que você não se inscreveu em algum Meetup ainda.
+      </EmptyText>
     </Container>
   )
 }
