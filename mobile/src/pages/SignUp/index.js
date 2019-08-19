@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Image } from 'react-native'
+import PropTypes from 'prop-types'
 
 import { signUpRequest } from '~/store/modules/auth/actions'
 
@@ -81,4 +82,10 @@ export default function SignUp({ navigation }) {
       </Container>
     </Background>
   )
+}
+
+SignUp.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
 }

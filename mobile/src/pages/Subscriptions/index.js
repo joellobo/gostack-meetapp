@@ -3,6 +3,7 @@ import { withNavigationFocus } from 'react-navigation'
 import { format, parseISO } from 'date-fns'
 import { Alert } from 'react-native'
 import pt from 'date-fns/locale/pt'
+import PropTypes from 'prop-types'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -77,6 +78,10 @@ Subscriptions.navigationOptions = {
   tabBarIcon: ({ tintColor }) => (
     <Icon name='playlist-add-check' size={30} color={tintColor} />
   ),
+}
+
+Subscriptions.propTypes = {
+  isFocused: PropTypes.bool.isRequired,
 }
 
 export default withNavigationFocus(Subscriptions)

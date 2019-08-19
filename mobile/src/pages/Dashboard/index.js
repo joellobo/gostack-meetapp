@@ -3,6 +3,7 @@ import { withNavigationFocus } from 'react-navigation'
 import { TouchableOpacity, Alert } from 'react-native'
 import { format, subDays, addDays, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
+import PropTypes from 'prop-types'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -126,6 +127,10 @@ Dashboard.navigationOptions = {
   tabBarIcon: ({ tintColor }) => (
     <Icon name='event' size={20} color={tintColor} />
   ),
+}
+
+Dashboard.propTypes = {
+  isFocused: PropTypes.bool.isRequired,
 }
 
 export default withNavigationFocus(Dashboard)
