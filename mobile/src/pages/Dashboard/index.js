@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import { withNavigationFocus } from 'react-navigation'
-import { TouchableOpacity, Alert } from 'react-native'
+import { TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
 import { format, subDays, addDays, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import PropTypes from 'prop-types'
@@ -13,12 +13,19 @@ import Background from '~/components/Background'
 import MeetUpCard from '~/components/MeetUpCard'
 import EmptyList from './components/EmptyList'
 
-import { Container, MeetUpsList, PageTitleContainer, PageTitle } from './styles'
+import {
+  Container,
+  MeetUpsList,
+  PageTitleContainer,
+  PageTitle,
+  LoaderContainer,
+} from './styles'
 
 function Dashboard({ isFocused }) {
   const [meetups, setMeetups] = useState([])
   const [date, setDate] = useState(new Date())
   const [page, setPage] = useState(1)
+  const [isLoading, setIsLoading] = useState(true)
 
   const dateFormatted = useMemo(
     () => format(date, "d 'de' MMMM", { locale: pt }),
@@ -38,6 +45,7 @@ function Dashboard({ isFocused }) {
 
   useEffect(() => {
     async function getMeetups() {
+      setIsLoading(true)
       const response = await api.get('meetups/date', {
         params: {
           date: date.toISOString(),
@@ -45,6 +53,7 @@ function Dashboard({ isFocused }) {
       })
 
       setMeetups(formatMeetUpsDate(response.data))
+      setIsLoading(false)
     }
 
     if (isFocused) {
@@ -91,6 +100,33 @@ function Dashboard({ isFocused }) {
     setPage(nextPage)
   }
 
+  function renderMeetups() {
+    if (isLoading) {
+      return (
+        <LoaderContainer>
+          <ActivityIndicator size='large' color='#fff' />
+        </LoaderContainer>
+      )
+    }
+
+    return (
+      <MeetUpsList
+        data={meetups}
+        keyExtractor={item => String(item.id)}
+        onEndReachedThreshold={0.2}
+        onEndReached={loadMoreMeetUps}
+        renderItem={({ item }) => (
+          <MeetUpCard
+            meetup={item}
+            onMainButtonPress={() => handleSubscription(item)}
+            mainButtonText='Realizar inscrição'
+          />
+        )}
+        ListEmptyComponent={<EmptyList />}
+      />
+    )
+  }
+
   return (
     <Background>
       <Container>
@@ -103,20 +139,7 @@ function Dashboard({ isFocused }) {
             <Icon name='keyboard-arrow-right' size={28} color='#fff' />
           </TouchableOpacity>
         </PageTitleContainer>
-        <MeetUpsList
-          data={meetups}
-          keyExtractor={item => String(item.id)}
-          onEndReachedThreshold={0.2}
-          onEndReached={loadMoreMeetUps}
-          renderItem={({ item }) => (
-            <MeetUpCard
-              meetup={item}
-              onMainButtonPress={() => handleSubscription(item)}
-              mainButtonText='Realizar inscrição'
-            />
-          )}
-          ListEmptyComponent={<EmptyList />}
-        />
+        {renderMeetups()}
       </Container>
     </Background>
   )

@@ -21,3 +21,9 @@ export const PageTitle = styled.Text`
 export const MeetUpsList = styled.FlatList`
   flex: 1;
 `
+
+export const LoaderContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`
