@@ -22,21 +22,25 @@ describe('User', () => {
   })
 
   it('Should register a new user', async () => {
+    const user = await factory.attrs('User')
+
     const response = await request(app)
       .post('/users')
-      .send({ name: 'User Test', email: 'user@test.com', password: '12345678' })
+      .send(user)
 
     expect(response.body).toHaveProperty('id')
   })
 
   it('Should be not possible register duplicated emails, must return status 400', async () => {
+    const user = await factory.attrs('User')
+
     await request(app)
       .post('/users')
-      .send({ name: 'User Test', email: 'user@test.com', password: '12345678' })
+      .send(user)
 
     const response = await request(app)
       .post('/users')
-      .send({ name: 'User Test', email: 'user@test.com', password: '12345678' })
+      .send(user)
 
     expect(response.status).toBe(400)
   })
