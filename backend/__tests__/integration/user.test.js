@@ -6,7 +6,7 @@ import factory from '../factories'
 
 import truncate from '../util/truncate'
 
-describe('User', () => {
+describe('User store', () => {
   beforeEach(async () => {
     await truncate()
   })
@@ -44,4 +44,72 @@ describe('User', () => {
 
     expect(response.status).toBe(400)
   })
+
+  it('Should be not possible register user with email without @, must return status 400', async () => {
+    const user = await factory.attrs('User', {
+      email: 'thisisnotavalidemail.com',
+    })
+
+    const response = await request(app)
+      .post('/users')
+      .send(user)
+
+    expect(response.status).toBe(400)
+  })
+
+  it('Should be not possible register a user with a password shorter than 8 characteres, must return status 400', async () => {
+    const user = await factory.attrs('User', {
+      password: '1234567',
+    })
+
+    const response = await request(app)
+      .post('/users')
+      .send(user)
+
+    expect(response.status).toBe(400)
+  })
+
+  it('Should be not possible register a user without name, must return status 400', async () => {
+    const user = await factory.attrs('User', {
+      email: '',
+    })
+
+    const response = await request(app)
+      .post('/users')
+      .send(user)
+
+    expect(response.status).toBe(400)
+  })
+
+  it('Should be not possible register a user without email, must return status 400', async () => {
+    const user = await factory.attrs('User', {
+      email: '',
+    })
+
+    const response = await request(app)
+      .post('/users')
+      .send(user)
+
+    expect(response.status).toBe(400)
+  })
+
+  it('Should be not possible register a user without email, must return status 400', async () => {
+    const user = await factory.attrs('User', {
+      password: '',
+    })
+
+    const response = await request(app)
+      .post('/users')
+      .send(user)
+
+    expect(response.status).toBe(400)
+  })
+})
+
+describe('User update', () => {
+  beforeEach(async () => {
+    await truncate()
+  })
+
+  it('Should be possible update a existent user', async () => {})
 })
