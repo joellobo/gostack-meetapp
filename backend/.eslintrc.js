@@ -2,10 +2,9 @@ module.exports = {
   env: {
     es6: true,
     node: true,
+    jest: true,
   },
-  extends: [
-    'airbnb-base', 'prettier'
-  ],
+  extends: ['airbnb-base', 'prettier'],
   plugins: ['prettier'],
   globals: {
     Atomics: 'readonly',
@@ -16,12 +15,12 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "prettier/prettier": "error",
-    "class-methods-use-this": "off",
-    "no-param-reassign": "off",
-    "cammelcase": "off",
-    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
-    "semi": "off",
-    "import/prefer-default-export": "off"
+    'prettier/prettier': 'error',
+    'class-methods-use-this': 'off',
+    'no-param-reassign': 'off',
+    cammelcase: 'off',
+    'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
+    semi: 'off',
+    'import/prefer-default-export': 'off',
   },
-};
+}
