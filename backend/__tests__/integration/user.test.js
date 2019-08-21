@@ -111,5 +111,24 @@ describe('User update', () => {
     await truncate()
   })
 
-  it('Should be possible update a existent user', async () => {})
+  it('Should be possible update the name of a existent user', async () => {
+    const user = await factory.attrs('User')
+
+    const {
+      request: { _data: userData },
+    } = await request(app)
+      .post('/users')
+      .send(user)
+
+    const { body: sessionData } = await request(app)
+      .post('/sessions')
+      .send({ email: userData.email, password: userData.password })
+
+    const response = await request(app)
+      .put('/users')
+      .send({ name: 'New User Name' })
+      .set({ Authorization: `Bearer ${sessionData.token}` })
+
+    expect(response.body.name).toBe('New User Name')
+  })
 })
