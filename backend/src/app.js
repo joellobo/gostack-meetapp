@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import './bootstrap'
 
 import cors from 'cors'
 import express from 'express'
