@@ -21,12 +21,14 @@ class SessionController {
     })
 
     if (!user) {
-      res.status(401).json({ message: `User with email ${email} not found.` })
+      return res
+        .status(401)
+        .json({ message: `User with email ${email} not found.` })
     }
 
     const passwordMatch = await user.checkPassword(password)
     if (!passwordMatch) {
-      res.status(401).json({ message: `Password does not match.` })
+      return res.status(401).json({ message: `Password does not match.` })
     }
 
     const { id, name, avatar } = user
