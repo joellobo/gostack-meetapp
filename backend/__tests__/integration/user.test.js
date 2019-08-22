@@ -114,21 +114,166 @@ describe('User update', () => {
   it('Should be possible update the name of a existent user', async () => {
     const user = await factory.attrs('User')
 
-    const {
-      request: { _data: userData },
-    } = await request(app)
+    await request(app)
       .post('/users')
       .send(user)
 
     const { body: sessionData } = await request(app)
       .post('/sessions')
-      .send({ email: userData.email, password: userData.password })
+      .send({ email: user.email, password: user.password })
 
     const response = await request(app)
       .put('/users')
       .send({ name: 'New User Name' })
       .set({ Authorization: `Bearer ${sessionData.token}` })
 
+    expect(response.status).toBe(200)
     expect(response.body.name).toBe('New User Name')
+  })
+
+  it('Should be possible update the email of a existent user', async () => {
+    const user = await factory.attrs('User')
+
+    await request(app)
+      .post('/users')
+      .send(user)
+
+    const { body: sessionData } = await request(app)
+      .post('/sessions')
+      .send({ email: user.email, password: user.password })
+
+    const response = await request(app)
+      .put('/users')
+      .send({ email: 'newemail@test.com' })
+      .set({ Authorization: `Bearer ${sessionData.token}` })
+
+    expect(response.status).toBe(200)
+    expect(response.body.email).toBe('newemail@test.com')
+  })
+
+  it('Should be possible update the password of a existent user', async () => {
+    const user = await factory.attrs('User')
+
+    await request(app)
+      .post('/users')
+      .send(user)
+
+    const { body: sessionData } = await request(app)
+      .post('/sessions')
+      .send({ email: user.email, password: user.password })
+
+    const response = await request(app)
+      .put('/users')
+      .send({
+        oldPassword: user.password,
+        password: '12345678',
+        passwordConfirmation: '12345678',
+      })
+      .set({ Authorization: `Bearer ${sessionData.token}` })
+
+    expect(response.status).toBe(200)
+    expect(response.status).toBe(200)
+  })
+
+  it('Should be not possible update an user with a wrong email', async () => {
+    const user = await factory.attrs('User')
+
+    await request(app)
+      .post('/users')
+      .send(user)
+
+    const { body: sessionData } = await request(app)
+      .post('/sessions')
+      .send({ email: user.email, password: user.password })
+
+    const response = await request(app)
+      .put('/users')
+      .send({ email: 'thatisnotanvalidemail' })
+      .set({ Authorization: `Bearer ${sessionData.token}` })
+
+    expect(response.status).toBe(400)
+    expect(response.body.message).toBe(
+      'Validation failed, there are missing or wrong parameters.'
+    )
+  })
+
+  it('Should be not possible update an user with a new password shorter than 8 characters', async () => {
+    const user = await factory.attrs('User')
+
+    await request(app)
+      .post('/users')
+      .send(user)
+
+    const { body: sessionData } = await request(app)
+      .post('/sessions')
+      .send({ email: user.email, password: user.password })
+
+    const response = await request(app)
+      .put('/users')
+      .send({
+        oldPassword: user.password,
+        password: '1234567',
+        passwordConfirmation: '1234567',
+      })
+      .set({ Authorization: `Bearer ${sessionData.token}` })
+
+    expect(response.status).toBe(400)
+    expect(response.body.message).toBe(
+      'Validation failed, there are missing or wrong parameters.'
+    )
+  })
+
+  it('Should be not possible update an user with a wrong old password', async () => {
+    const user = await factory.attrs('User')
+
+    await request(app)
+      .post('/users')
+      .send(user)
+
+    const { body: sessionData } = await request(app)
+      .post('/sessions')
+      .send({ email: user.email, password: user.password })
+
+    const response = await request(app)
+      .put('/users')
+      .send({
+        oldPassword: 'wrongoldpassword',
+        password: '12345678',
+        passwordConfirmation: '12345678',
+      })
+      .set({ Authorization: `Bearer ${sessionData.token}` })
+
+    expect(response.status).toBe(401)
+    expect(response.body.message).toBe('Old password does not match.')
+  })
+
+  it('Should be not possible update the email of a existent user with an registered email', async () => {
+    const registeredUser = await factory.attrs('User', {
+      email: 'alreadyregistered@email.com',
+    })
+    const user = await factory.attrs('User')
+
+    await request(app)
+      .post('/users')
+      .send(user)
+
+    await request(app)
+      .post('/users')
+      .send(registeredUser)
+
+    const { body: sessionData } = await request(app)
+      .post('/sessions')
+      .send({ email: user.email, password: user.password })
+
+    console.log('registered', user)
+    console.log('registered', registeredUser)
+
+    const response = await request(app)
+      .put('/users')
+      .send({ email: registeredUser.email })
+      .set({ Authorization: `Bearer ${sessionData.token}` })
+
+    expect(response.status).toBe(400)
+    expect(response.body.message).toBe('User with that email already exists.')
   })
 })
