@@ -93,7 +93,7 @@ describe('User store', () => {
     expect(response.status).toBe(400)
   })
 
-  it('Should be not possible register a user without email, must return status 400', async () => {
+  it('Should be not possible register a user without password, must return status 400', async () => {
     const user = await factory.attrs('User', {
       password: '',
     })
@@ -272,5 +272,31 @@ describe('User update', () => {
 
     expect(response.status).toBe(400)
     expect(response.body.message).toBe('User with that email already exists.')
+  })
+
+  it('Should be not possible update an user with wrong password confirmation.', async () => {
+    const user = await factory.attrs('User')
+
+    await request(app)
+      .post('/users')
+      .send(user)
+
+    const { body: sessionData } = await request(app)
+      .post('/sessions')
+      .send({ email: user.email, password: user.password })
+
+    const response = await request(app)
+      .put('/users')
+      .send({
+        oldPassword: user.password,
+        password: '123456789',
+        passwordConfirmation: '12345678',
+      })
+      .set({ Authorization: `Bearer ${sessionData.token}` })
+
+    expect(response.status).toBe(400)
+    expect(response.body.message).toBe(
+      'Validation failed, there are missing or wrong parameters.'
+    )
   })
 })
