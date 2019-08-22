@@ -265,9 +265,6 @@ describe('User update', () => {
       .post('/sessions')
       .send({ email: user.email, password: user.password })
 
-    console.log('registered', user)
-    console.log('registered', registeredUser)
-
     const response = await request(app)
       .put('/users')
       .send({ email: registeredUser.email })
