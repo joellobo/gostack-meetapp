@@ -3,6 +3,7 @@ import { factory } from 'factory-girl'
 
 import User from '../src/app/models/User'
 import Meetup from '../src/app/models/Meetup'
+import File from '../src/app/models/File'
 
 factory.define('User', User, {
   name: faker.name.findName(),
@@ -16,6 +17,10 @@ factory.define('Meetup', Meetup, {
   location: faker.address.city(),
   dateTime: faker.date.future(),
   bannerId: faker.random.number(),
+})
+
+factory.define('File', File, {
+  file: faker.image.abstractImage(),
 })
 
 export default factory
