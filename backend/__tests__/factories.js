@@ -20,7 +20,7 @@ factory.define('Meetup', Meetup, {
 })
 
 factory.define('File', File, {
-  file: faker.image.abstractImage(),
+  file: faker.image.city(),
 })
 
 export default factory
