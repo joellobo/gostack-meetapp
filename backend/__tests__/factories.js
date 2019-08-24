@@ -8,7 +8,7 @@ import File from '../src/app/models/File'
 factory.define('User', User, {
   name: faker.name.findName(),
   email: faker.internet.email(),
-  password: faker.internet.password(),
+  password: faker.internet.password(9),
 })
 
 factory.define('Meetup', Meetup, {

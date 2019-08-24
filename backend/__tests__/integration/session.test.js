@@ -11,15 +11,13 @@ describe('Session store', () => {
   })
 
   it('Should be possible create a session with a existent user', async () => {
-    const user = await factory.attrs('User')
-
-    await request(app)
-      .post('/users')
-      .send(user)
+    const user = await factory.create('User', {
+      password: '123456789',
+    })
 
     const response = await request(app)
       .post('/sessions')
-      .send({ email: user.email, password: user.password })
+      .send({ email: user.email, password: '123456789' })
 
     expect(response.status).toBe(200)
     expect(response.body).toHaveProperty('token')

@@ -6,7 +6,7 @@ module.exports = {
   // automock: false,
 
   // Stop running tests after `n` failures
-  bail: 1,
+  bail: 0,
 
   // Respect "browser" field in package.json when resolving modules
   // browser: false,
@@ -95,10 +95,10 @@ module.exports = {
   // reporters: undefined,
 
   // Automatically reset mock state between every test
-  // resetMocks: false,
+  // resetMocks: true,
 
   // Reset the module registry before running each individual test
-  // resetModules: false,
+  // resetModules: true,
 
   // A path to a custom resolver
   // resolver: null,
