@@ -125,7 +125,7 @@ describe('User update', () => {
     const response = await request(app)
       .put('/users')
       .send({ name: 'New User Name' })
-      .set({ Authorization: `Bearer ${sessionData.token}` })
+      .set('Authorization', `Bearer ${sessionData.token}`)
 
     expect(response.status).toBe(200)
     expect(response.body.name).toBe('New User Name')
@@ -145,7 +145,7 @@ describe('User update', () => {
     const response = await request(app)
       .put('/users')
       .send({ email: 'newemail@test.com' })
-      .set({ Authorization: `Bearer ${sessionData.token}` })
+      .set('Authorization', `Bearer ${sessionData.token}`)
 
     expect(response.status).toBe(200)
     expect(response.body.email).toBe('newemail@test.com')
@@ -169,7 +169,7 @@ describe('User update', () => {
         password: '12345678',
         passwordConfirmation: '12345678',
       })
-      .set({ Authorization: `Bearer ${sessionData.token}` })
+      .set('Authorization', `Bearer ${sessionData.token}`)
 
     expect(response.status).toBe(200)
     expect(response.status).toBe(200)
@@ -189,7 +189,7 @@ describe('User update', () => {
     const response = await request(app)
       .put('/users')
       .send({ email: 'thatisnotanvalidemail' })
-      .set({ Authorization: `Bearer ${sessionData.token}` })
+      .set('Authorization', `Bearer ${sessionData.token}`)
 
     expect(response.status).toBe(400)
     expect(response.body.message).toBe(
@@ -215,7 +215,7 @@ describe('User update', () => {
         password: '1234567',
         passwordConfirmation: '1234567',
       })
-      .set({ Authorization: `Bearer ${sessionData.token}` })
+      .set('Authorization', `Bearer ${sessionData.token}`)
 
     expect(response.status).toBe(400)
     expect(response.body.message).toBe(
@@ -241,7 +241,7 @@ describe('User update', () => {
         password: '12345678',
         passwordConfirmation: '12345678',
       })
-      .set({ Authorization: `Bearer ${sessionData.token}` })
+      .set('Authorization', `Bearer ${sessionData.token}`)
 
     expect(response.status).toBe(401)
     expect(response.body.message).toBe('Old password does not match.')
@@ -268,7 +268,7 @@ describe('User update', () => {
     const response = await request(app)
       .put('/users')
       .send({ email: registeredUser.email })
-      .set({ Authorization: `Bearer ${sessionData.token}` })
+      .set('Authorization', `Bearer ${sessionData.token}`)
 
     expect(response.status).toBe(400)
     expect(response.body.message).toBe('User with that email already exists.')
@@ -292,7 +292,7 @@ describe('User update', () => {
         password: '123456789',
         passwordConfirmation: '12345678',
       })
-      .set({ Authorization: `Bearer ${sessionData.token}` })
+      .set('Authorization', `Bearer ${sessionData.token}`)
 
     expect(response.status).toBe(400)
     expect(response.body.message).toBe(
