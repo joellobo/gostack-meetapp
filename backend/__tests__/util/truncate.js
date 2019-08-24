@@ -6,6 +6,7 @@ export default function truncate() {
       return database.connection.models[key].destroy({
         truncate: true,
         force: true,
+        cascade: true,
       })
     })
   )

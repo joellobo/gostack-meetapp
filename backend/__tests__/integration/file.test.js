@@ -23,8 +23,11 @@ describe('Session store', () => {
 
     const response = await request(app)
       .post('/files')
-      .attach('file', `${__dirname}/images/testimage.jpeg`)
-      .set({ Authorization: `Bearer ${sessionData.token}` })
+      .set('Content-type', 'multipart/form-data')
+      .attach('field', `${__dirname}/images/testimage.jpeg`, {
+        contentType: 'application/json; charset=utf-8',
+      })
+      .set('Authorization', `Bearer ${sessionData.token}`)
 
     expect(response.body).toHaveProperty('name')
     expect(response.body).toHaveProperty('path')
