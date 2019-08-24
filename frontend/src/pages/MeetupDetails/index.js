@@ -31,6 +31,9 @@ export default function MeetupDetails({ location }) {
     try {
       await api.delete(`/meetups/${currentMeetUp.id}`)
 
+      toast.success(
+        'Meetup cancelado com sucesso, você não terá mais acesso aos dados dele.'
+      )
       history.push('/dashboard')
     } catch (err) {
       toast.error('Houve um erro ao deletar o seu meetup, tente novamente.')

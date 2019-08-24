@@ -15,7 +15,7 @@ export const StyledForm = styled(Form)`
     color: #e5556e;
   }
 
-  textarea {
+  .description-textarea {
     width: 100%;
     height: 250px;
     border: none;

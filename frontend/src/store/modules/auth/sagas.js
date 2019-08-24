@@ -39,6 +39,9 @@ export function* signUp({ payload }) {
       provider: true,
     })
 
+    toast.success(
+      'Usuário cadastrado com sucesso, faça login com seu e-mail e senha.'
+    )
     history.push('/')
   } catch (err) {
     toast.error('Falha no cadastro, verifique os seus dados.')

@@ -1,6 +1,6 @@
 import React from 'react'
 import { format, parseISO } from 'date-fns'
-import { Textarea } from '@rocketseat/unform'
+import { Input } from '@rocketseat/unform'
 import { MdSave } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
@@ -71,7 +71,13 @@ export default function NewMeetup({ location }) {
       >
         <BannerInput />
         <MaInput name='title' placeholder='Título do Meetup' />
-        <Textarea name='description' placeholder='Descrição do Meetup' />
+        <Input
+          multiline
+          name='description'
+          placeholder='Descrição do Meetup'
+          className='description-textarea'
+          maxLength={255}
+        />
         <MaDatePicker
           name='dateTime'
           selectedDate={location.state && location.state.meetUp.date_time}
