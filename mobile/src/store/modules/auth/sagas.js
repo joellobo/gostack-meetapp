@@ -1,7 +1,7 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects'
 import { showMessage } from 'react-native-flash-message'
 
-import { signInSuccess, signFailure } from './actions'
+import { signInSuccess, signFailure, signUpSuccess } from './actions'
 
 import api from '../../../services/api'
 
@@ -37,9 +37,16 @@ export function* signUp({ payload }) {
       email,
       password,
     })
+
+    yield put(signUpSuccess())
+    showMessage({
+      message:
+        'Você foi cadastrado com sucesso, faça login com seu e-mail e senha.',
+      type: 'success',
+    })
   } catch (err) {
     showMessage({
-      message: err.response.body.message,
+      message: err.response.data.message,
       type: 'danger',
     })
     yield put(signFailure())
