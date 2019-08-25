@@ -6,9 +6,11 @@ class UserController {
     const userExists = await User.findOne({ where: { email: req.body.email } })
 
     if (userExists) {
-      return res
-        .status(400)
-        .json({ message: 'User with that email already exists.' })
+      return res.status(400).json({
+        message: 'User with that email already exists.',
+        userMessage: 'Usuário com este email já está cadastrado.',
+        code: 'ERROR_BAD_REQUEST',
+      })
     }
 
     const { id, name, email } = await User.create(req.body)
@@ -31,14 +33,20 @@ class UserController {
       })
 
       if (userExists) {
-        return res
-          .status(400)
-          .json({ message: 'User with that email already exists.' })
+        return res.status(400).json({
+          message: 'User with that email already exists.',
+          userMessage: 'Usuário com este email já está cadastrado.',
+          code: 'ERROR_BAD_REQUEST',
+        })
       }
     }
 
     if (oldPassword && !(await user.checkPassword(oldPassword))) {
-      return res.status(401).json({ message: 'Old password does not match.' })
+      return res.status(401).json({
+        message: 'Old password does not match.',
+        userMessage: 'A senha sua senha antiga parece estar incorreta.',
+        code: 'ERROR_BAD_REQUEST',
+      })
     }
 
     await user.update(req.body)

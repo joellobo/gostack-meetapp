@@ -81,6 +81,8 @@ class MeetupController {
     if (isMeetUpBeforeNow) {
       return res.status(400).json({
         message: "You can't register MeetUps with dates befores now.",
+        userMessage: 'Você não pode registrar Meetups com datas no passado.',
+        code: 'ERROR_PAST_MEETUP',
       })
     }
 
@@ -108,12 +110,16 @@ class MeetupController {
     if (meetUp.user_id !== req.userId) {
       return res.status(401).json({
         message: 'You are not authorized to update this MeetUp.',
+        userMessage: 'Você não pode atualizar este MeetUp',
+        code: 'ERROR_UNATHORIZED',
       })
     }
 
     if (isBefore(parseISO(meetUp.date_time), new Date())) {
       return res.status(400).json({
         message: "You can't update past MeetUps.",
+        userMessage: 'Você não pode atualizar Meetups no passado.',
+        code: 'ERROR_PAST_MEETUP',
       })
     }
 
@@ -125,6 +131,8 @@ class MeetupController {
     if (isNewDateBeforeNow) {
       return res.status(400).json({
         message: "You can't register MeetUps with dates befores now.",
+        userMessage: 'Você não pode registrar Meetups com datas no passado.',
+        code: 'ERROR_PAST_MEETUP',
       })
     }
 
@@ -145,13 +153,19 @@ class MeetupController {
     const meetUp = await Meetup.findByPk(meetUpId)
 
     if (!meetUp) {
-      return res
-        .status(404)
-        .json({ message: `MeetUp with id ${meetUpId} was not found.` })
+      return res.status(404).json({
+        message: `MeetUp with id ${meetUpId} was not found.`,
+        userMessage: 'O MeetUp não pode ser encontrado.',
+        code: 'ERROR_MEETUP_NOT_FOUND',
+      })
     }
 
     if (meetUp.user_id !== req.userId) {
-      return res.status(401).json({ message: "You can't delete this MeetUp." })
+      return res.status(401).json({
+        message: "You can't delete this MeetUp.",
+        userMessage: 'Você não pode deletar este MeetUp',
+        code: 'ERROR_UNATHORIZED',
+      })
     }
 
     const isMeetUpBeforeNow = isBefore(new Date(meetUp.date_time), new Date())
@@ -159,6 +173,8 @@ class MeetupController {
     if (isMeetUpBeforeNow) {
       return res.status(400).json({
         message: "You can't delete MeetUps with dates befores now.",
+        userMessage: 'Você não pode deletar MeetUps no passado.',
+        code: 'ERROR_PAST_MEETUP',
       })
     }
 
@@ -166,6 +182,8 @@ class MeetupController {
 
     return res.json({
       message: `MeetUp with id ${meetUpId} was deleted.`,
+      userMessage: 'MeetUp deletado com sucesso.',
+      code: 'SUCCESS_DELETED',
     })
   }
 }

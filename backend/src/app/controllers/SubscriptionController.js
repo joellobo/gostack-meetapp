@@ -49,21 +49,27 @@ class SubscriptionController {
     const meetUp = await Meetup.findByPk(meetUpId)
 
     if (!meetUp) {
-      return res
-        .status(404)
-        .json({ message: `MeetUp with id ${meetUpId} not found.` })
+      return res.status(404).json({
+        message: `MeetUp with id ${meetUpId} not found.`,
+        userMessage: 'MeetUp não foi encontrado',
+        code: 'ERROR_MEETUP_NOT_FOUND',
+      })
     }
 
     if (isBefore(new Date(meetUp.date_time), new Date())) {
       return res.status(400).json({
         message: "You can't subscribe to past MeetUps.",
+        userMessage: 'Você não pode se cadastrar em MeetUps no passado.',
+        code: 'ERROR_PAST_MEETUP',
       })
     }
 
     if (meetUp.user_id === req.userId) {
-      return res
-        .status(401)
-        .json({ message: "You can't subscribe to a MeetUp that is yours." })
+      return res.status(401).json({
+        message: "You can't subscribe to a MeetUp that is yours.",
+        userMessage: 'Você não pode se inscrever nos seus MeetUps.',
+        code: 'ERROR_BAD_REQUEST',
+      })
     }
 
     const subscriptionExists = await Subscription.findOne({
@@ -74,6 +80,8 @@ class SubscriptionController {
       return res.status(400).json({
         message:
           "You can't subscribe to a MeetUp that you already are subscribed.",
+        userMessage: 'Você ja se inscreveu neste MeetUp.',
+        code: 'ERROR_BAD_REQUEST',
       })
     }
 
@@ -93,6 +101,8 @@ class SubscriptionController {
       return res.status(400).json({
         message:
           'You can not subscribe to MeetUps that are at the same momemt.',
+        userMessage: 'Você já está inscrito em um MeetUp neste horário.',
+        code: 'ERROR_BAD_REQUEST',
       })
     }
 
@@ -146,12 +156,17 @@ class SubscriptionController {
     if (!subscription) {
       return res.status(404).json({
         message: `Subscription to MeetUp with id ${meetUpId} not found.`,
+        userMessage: 'A inscrição para este MeetUp não foi encontrada.',
+        code: 'ERROR_SUBSCRIPTION_NOT_FOUND',
       })
     }
 
     if (isBefore(new Date(meetUp.date_time), new Date())) {
       return res.status(400).json({
         message: "You can't cancel the subscription of past MeetUps.",
+        userMessage:
+          'Você não pode cancelar a inscrição de MeetUps no passado.',
+        code: 'ERROR_PAST_MEETUP',
       })
     }
 
@@ -159,6 +174,8 @@ class SubscriptionController {
 
     return res.json({
       message: `Subscription to meetup with id ${meetUpId} was deleted.`,
+      userMessage: 'Inscrição no MeetUp cancelada.',
+      code: 'SUCCESS',
     })
   }
 }

@@ -12,6 +12,8 @@ export default async (req, res, next) => {
   if (!(await schema.isValid(req.body))) {
     return res.json(400).json({
       message: 'There are missing or invalid parameters on the request.',
+      userMessage: 'Parece que você não forneceu todos os dados necessários.',
+      code: 'ERROR_BAD_REQUEST',
     })
   }
 
