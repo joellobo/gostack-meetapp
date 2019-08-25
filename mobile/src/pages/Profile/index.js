@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { updateProfileRequest } from '~/store/modules/user/actions'
 import { signOut } from '~/store/modules/auth/actions'
+import { show } from '~/store/modules/toast/actions'
 
 import Background from '~/components/Background'
 
@@ -26,8 +27,6 @@ export default function Profile() {
   const passwordConfirmationRef = useRef()
 
   const user = useSelector(state => state.user.profile)
-
-  console.tron.log(user)
 
   const [name, setName] = useState(user.name)
   const [email, setEmail] = useState(user.email)

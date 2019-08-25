@@ -14,9 +14,11 @@ import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import Subscriptions from './pages/Subscriptions'
 
+import Toast from './components/Toast'
+
 import logo from '~/assets/logo.png'
 
-export default (isSigned = false) =>
+export default (isSigned = false, toast) =>
   createAppContainer(
     createSwitchNavigator(
       {
@@ -42,6 +44,7 @@ export default (isSigned = false) =>
                     borderTopColor: 'transparent',
                   },
                 },
+                initialRouteName: toast.route,
               }
             ),
           },
@@ -53,11 +56,14 @@ export default (isSigned = false) =>
               },
               headerTintColor: '#fff',
               headerTitle: (
-                <Image
-                  source={logo}
-                  style={{ width: 35, height: 35, flex: 1 }}
-                  resizeMode='contain'
-                />
+                <>
+                  <Image
+                    source={logo}
+                    style={{ width: 35, height: 35, flex: 1 }}
+                    resizeMode='contain'
+                  />
+                  <Toast options={toast.options} />
+                </>
               ),
             },
           }
