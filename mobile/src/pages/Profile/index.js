@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { updateProfileRequest } from '~/store/modules/user/actions'
 import { signOut } from '~/store/modules/auth/actions'
-import { show } from '~/store/modules/toast/actions'
 
 import Background from '~/components/Background'
 

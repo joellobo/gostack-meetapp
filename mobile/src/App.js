@@ -1,12 +1,19 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
+import FlashMessage from 'react-native-flash-message'
+
 import createRoutes from './routes'
 
 export default function App() {
-  const { auth, toast } = useSelector(state => state)
+  const { signed } = useSelector(state => state.auth)
 
-  const Routes = createRoutes(auth.signed, toast)
+  const Routes = createRoutes(signed)
 
-  return <Routes />
+  return (
+    <>
+      <Routes />
+      <FlashMessage position='top' />
+    </>
+  )
 }
