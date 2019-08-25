@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Image, Alert } from 'react-native'
+import { Image } from 'react-native'
 import PropTypes from 'prop-types'
+
+import { showMessage } from 'react-native-flash-message'
 
 import { signUpRequest } from '~/store/modules/auth/actions'
 
@@ -37,7 +39,11 @@ export default function SignUp({ navigation }) {
         navigation.navigate('SignIn')
       }
     } else {
-      Alert.alert('Erro.', 'Parce que você não preencheu todos os campos.')
+      showMessage({
+        message:
+          'Parece que você não preencheu todos os campos. Preencha todos eles e tente novamente.',
+        type: 'warning',
+      })
     }
   }
 

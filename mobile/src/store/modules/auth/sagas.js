@@ -1,5 +1,5 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects'
-import { Alert } from 'react-native'
+import { showMessage } from 'react-native-flash-message'
 
 import { signInSuccess, signFailure } from './actions'
 
@@ -20,7 +20,10 @@ export function* signIn({ payload }) {
 
     yield put(signInSuccess(token, user))
   } catch (err) {
-    Alert.alert('Erro', 'Falha na autenticação, verifique seus dados.')
+    showMessage({
+      message: err.response.body.message,
+      type: 'danger',
+    })
     yield put(signFailure())
   }
 }
@@ -35,7 +38,10 @@ export function* signUp({ payload }) {
       password,
     })
   } catch (err) {
-    Alert.alert('Erro', 'Falha no cadastro, verifique os seus dados.')
+    showMessage({
+      message: err.response.body.message,
+      type: 'danger',
+    })
     yield put(signFailure())
   }
 }
@@ -51,7 +57,10 @@ export function setToken({ payload }) {
 }
 
 export function signOut() {
-  Alert.alert('Sucesso', 'Você foi deslogado.')
+  showMessage({
+    message: 'Você foi deslodado do MeetApp',
+    type: 'success',
+  })
 }
 
 export default all([

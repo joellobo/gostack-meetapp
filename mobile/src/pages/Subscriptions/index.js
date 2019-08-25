@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { withNavigationFocus } from 'react-navigation'
 import { format, parseISO } from 'date-fns'
-import { Alert, ActivityIndicator } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import pt from 'date-fns/locale/pt'
 import PropTypes from 'prop-types'
+
+import { showMessage } from 'react-native-flash-message'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -50,9 +52,15 @@ function Subscriptions({ isFocused }) {
 
       setMeetups(meetups.filter(meetup => meetup.id !== id))
 
-      Alert.alert('Sucesso!', `Sua inscrição no meetup ${title} foi cancelada.`)
+      showMessage({
+        message: `Sua inscrição no meetup ${title} foi cancelada.`,
+        type: 'success',
+      })
     } catch (err) {
-      Alert.alert('Erro!', err.response.data.message)
+      showMessage({
+        message: err.response.data.message,
+        type: 'danger',
+      })
     }
   }
 

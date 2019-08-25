@@ -1,5 +1,5 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects'
-import { showMessage, hideMessage } from 'react-native-flash-message'
+import { showMessage } from 'react-native-flash-message'
 
 import { updateProfileSuccess, updateProfileFailure } from './actions'
 
@@ -16,19 +16,13 @@ export function* updateProfile({ payload }) {
 
     const response = yield call(api.put, 'users', profile)
 
-    showMessage({ message: 'Simple message', type: 'info' })
+    showMessage({ message: 'Prerfil atualizado com sucesso', type: 'success' })
     yield put(updateProfileSuccess(response.data))
   } catch (err) {
-    yield put(
-      show(
-        {
-          text: 'Opss parece que houve um erro, verifique os campos.',
-          type: 'ERROR',
-          show: true,
-        },
-        'Profile'
-      )
-    )
+    showMessage({
+      message: 'Erro, verifique os dados preenchidos e tente novamente',
+      type: 'danger',
+    })
     yield put(updateProfileFailure())
   }
 }

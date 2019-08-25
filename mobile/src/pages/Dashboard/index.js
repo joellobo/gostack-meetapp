@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import { withNavigationFocus } from 'react-navigation'
-import { TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
+import { TouchableOpacity, ActivityIndicator } from 'react-native'
 import { format, subDays, addDays, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import PropTypes from 'prop-types'
+
+import { showMessage } from 'react-native-flash-message'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -77,12 +79,15 @@ function Dashboard({ isFocused }) {
 
       setMeetups(meetups.filter(meetup => meetup.id !== id))
 
-      Alert.alert(
-        'Sucesso!',
-        `Você se inscreveu no Meetup ${title} com sucesso`
-      )
+      showMessage({
+        message: `Você se inscreveu no Meetup ${title} com sucesso`,
+        type: 'success',
+      })
     } catch (err) {
-      Alert.alert('Erro!', err.response.data.message)
+      showMessage({
+        message: err.response.data.message,
+        type: 'danger',
+      })
     }
   }
 
