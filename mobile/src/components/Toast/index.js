@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { Text, Animated } from 'react-native'
 
+import styles from './styles'
+
 export default function Toast({ options }) {
   const animatedValue = new Animated.Value(-70)
 
@@ -24,26 +26,13 @@ export default function Toast({ options }) {
 
   return (
     <Animated.View
-      style={{
+      style={[{
         transform: [{ translateY: animatedValue }],
-        height: 70,
         backgroundColor: 'green',
-        position: 'absolute',
-        opacity: 0.9,
-        left: 0,
-        top: 0,
-        right: 0,
-        justifyContent: 'center',
-        zIndex: 10,
-      }}
+      }, styles.toastContainer]}
     >
       <Text
-        style={{
-          marginLeft: 10,
-          color: 'white',
-          fontSize: 16,
-          fontWeight: 'bold',
-        }}
+        style={styles.toastText}
       >
         {options.text}
       </Text>
