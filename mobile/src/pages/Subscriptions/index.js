@@ -58,7 +58,7 @@ function Subscriptions({ isFocused }) {
       })
     } catch (err) {
       showMessage({
-        message: err.response.data.message,
+        message: err.response.data.userMessage,
         type: 'danger',
       })
     }

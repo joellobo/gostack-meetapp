@@ -21,7 +21,7 @@ export function* signIn({ payload }) {
     yield put(signInSuccess(token, user))
   } catch (err) {
     showMessage({
-      message: err.response.data.message,
+      message: err.response.data.userMessage,
       type: 'danger',
     })
     yield put(signFailure())
@@ -46,7 +46,7 @@ export function* signUp({ payload }) {
     })
   } catch (err) {
     showMessage({
-      message: err.response.data.message,
+      message: err.response.data.userMessage,
       type: 'danger',
     })
     yield put(signFailure())
