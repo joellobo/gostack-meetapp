@@ -17,11 +17,11 @@ export function* updateProfile({ payload }) {
     const response = yield call(api.put, 'users', profile)
 
     yield put(updateProfileSuccess(response.data))
-    showMessage({ message: 'Prerfil atualizado com sucesso', type: 'success' })
+    showMessage({ message: 'Perfil atualizado com sucesso', type: 'success' })
   } catch (err) {
     yield put(updateProfileFailure())
     showMessage({
-      message: 'Erro, verifique os dados preenchidos e tente novamente',
+      message: err.response.data.userMessage,
       type: 'danger',
     })
   }

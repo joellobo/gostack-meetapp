@@ -23,9 +23,17 @@ class UserController {
   }
 
   async update(req, res) {
-    const { email, oldPassword } = req.body
+    const { name: oldName, email, oldPassword } = req.body
 
     const user = await User.findByPk(req.userId)
+
+    if (!email || !oldName) {
+      return res.status(400).json({
+        message: 'You need to send a name and a email.',
+        userMessage: 'Você não pode deixar os campos de nome e email vazios.',
+        code: 'ERROR_BAD_REQUEST',
+      })
+    }
 
     if (email && email !== user.email) {
       const userExists = await User.findOne({
@@ -63,8 +71,8 @@ class UserController {
 
     return res.json({
       id,
-      name: name || user.name,
-      email: email || user.email,
+      name,
+      email,
       avatar,
     })
   }
