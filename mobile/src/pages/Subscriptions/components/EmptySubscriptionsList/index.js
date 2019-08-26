@@ -8,7 +8,7 @@ export default function EmptyList() {
     <Container>
       <Icon
         name='hourglass-empty'
-        color='rgba(255, 255, 255, 0.6)'
+        color='rgba(255, 255, 255, 0.3)'
         size={120}
       />
       <EmptyText>
