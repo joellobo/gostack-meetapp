@@ -36,7 +36,7 @@ export default function MeetupDetails({ location }) {
       )
       history.push('/dashboard')
     } catch (err) {
-      toast.error('Houve um erro ao deletar o seu meetup, tente novamente.')
+      toast.error(err.response.data.userMessage)
     }
   }
 

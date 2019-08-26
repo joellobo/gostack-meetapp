@@ -56,7 +56,7 @@ export default function NewMeetup({ location }) {
     } catch (err) {
       toast.error(
         err.response
-          ? err.response.data.message
+          ? err.response.data.userMessage
           : 'Houve um erro ao salvar seu meetup, verfique os dados preenchidos'
       )
     }
