@@ -39,7 +39,7 @@ function Dashboard({ isFocused }) {
       ...meetup,
       formattedDate: format(
         parseISO(meetup.date_time),
-        "d 'de' MMMM 'de' yyyy 'às' HH:hh",
+        "d 'de' MMMM 'de' yyyy 'às' HH:mm",
         { locale: pt }
       ),
     }))
