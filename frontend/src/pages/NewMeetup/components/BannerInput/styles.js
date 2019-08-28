@@ -16,6 +16,7 @@ export const Container = styled.div`
       width: 100%;
       border-radius: 5px;
       background: rgba(0, 0, 0, 0.2);
+      object-fit: cover;
     }
 
     h2 {
