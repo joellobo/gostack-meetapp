@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { withNavigationFocus } from 'react-navigation'
 import { format, parseISO } from 'date-fns'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, Animated } from 'react-native'
 import pt from 'date-fns/locale/pt'
 import PropTypes from 'prop-types'
 
@@ -20,9 +20,20 @@ import api from '~/services/api'
 function Subscriptions({ isFocused }) {
   const [meetups, setMeetups] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [screenOpacity, _] = useState(new Animated.Value(0))
+
+  const disapear = Animated.timing(screenOpacity, {
+    toValue: 0,
+    duration: 0,
+  })
+  const appear = Animated.timing(screenOpacity, {
+    toValue: 1,
+    duration: 500,
+  })
 
   useEffect(() => {
     async function getSubscribedMeetups() {
+      disapear.start()
       setIsLoading(true)
       const response = await api.get('subscriptions')
 
@@ -37,12 +48,14 @@ function Subscriptions({ isFocused }) {
 
       setMeetups(subscribedMeetups)
       setIsLoading(false)
+
+      appear.start()
     }
 
     if (isFocused) {
       getSubscribedMeetups()
     }
-  }, [isFocused])
+  }, [isFocused]) //eslint-disable-line
 
   async function handleCancelClick({ id, title }) {
     try {
@@ -91,7 +104,11 @@ function Subscriptions({ isFocused }) {
 
   return (
     <Background>
-      <Container>{renderSubscriptions()}</Container>
+      <Container>
+        <Animated.View style={{ flex: 1, opacity: screenOpacity }}>
+          {renderSubscriptions()}
+        </Animated.View>
+      </Container>
     </Background>
   )
 }

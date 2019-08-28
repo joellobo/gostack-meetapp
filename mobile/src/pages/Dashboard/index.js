@@ -28,7 +28,17 @@ function Dashboard({ isFocused }) {
   const [date, setDate] = useState(new Date())
   const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
-  const [screenOpacity, setScreenOpacity] = useState(new Animated.Value(0))
+  const [screenOpacity, _] = useState(new Animated.Value(0))
+
+  const disapear = Animated.timing(screenOpacity, {
+    toValue: 0,
+    duration: 0,
+  })
+
+  const appear = Animated.timing(screenOpacity, {
+    toValue: 1,
+    duration: 500,
+  })
 
   const dateFormatted = useMemo(
     () => format(date, "d 'de' MMMM", { locale: pt }),
@@ -57,31 +67,22 @@ function Dashboard({ isFocused }) {
 
       setMeetups(formatMeetUpsDate(response.data))
       setIsLoading(false)
-      Animated.timing(screenOpacity, {
-        toValue: 1,
-        duration: 500,
-      }).start()
+
+      appear.start()
     }
 
     if (isFocused) {
       getMeetups()
     }
-  }, [date, isFocused, screenOpacity])
-
-  function disapear() {
-    Animated.timing(screenOpacity, {
-      toValue: 0,
-      duration: 250,
-    }).start()
-  }
+  }, [date, isFocused]) // eslint-disable-line
 
   function handlePrevDay() {
-    disapear()
+    disapear.start()
     setDate(subDays(date, 1))
   }
 
   function handleNextDay() {
-    disapear()
+    disapear.start()
     setDate(addDays(date, 1))
   }
 
