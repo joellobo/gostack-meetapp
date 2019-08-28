@@ -7,10 +7,11 @@ import { FaPlus } from 'react-icons/fa'
 import api from '~/services/api'
 import history from '~/services/history'
 
-import { Wrapper, MeetUp, Alert, LoaderContainer } from './styles'
 import Container from '~/components/Container'
 import MaButton from '~/components/MaButton'
 import Loader from '~/components/Loader'
+
+import { Wrapper, MeetUp, Alert, LoaderContainer } from './styles'
 
 export default function Dashboard() {
   const [isLoading, setIsLoadig] = useState(true)
