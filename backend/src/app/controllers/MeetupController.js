@@ -23,6 +23,7 @@ class MeetupController {
           attributes: ['id', 'name', 'email'],
         },
       ],
+      order: [['date_time', 'ASC']],
     })
 
     return res.json(meetUps)
