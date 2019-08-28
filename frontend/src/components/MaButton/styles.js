@@ -18,4 +18,9 @@ export const StyledButton = styled.button`
   svg {
     margin-right: 10px;
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `

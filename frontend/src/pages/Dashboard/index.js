@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { MdNavigateNext, MdError } from 'react-icons/md'
-import { format, parseISO } from 'date-fns'
+import { isBefore, format, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import { FaPlus } from 'react-icons/fa'
 
@@ -29,6 +29,7 @@ export default function Dashboard() {
             locale: pt,
           }
         ),
+        isPast: isBefore(parseISO(meetUp.date_time), new Date()),
       }))
 
       setMeetUps(data)

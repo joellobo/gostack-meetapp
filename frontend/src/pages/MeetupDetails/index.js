@@ -21,6 +21,7 @@ export default function MeetupDetails({ location }) {
     location: place,
     formatedDate,
     banner,
+    isPast,
   } = currentMeetUp
 
   function handleEditMeetUpClick() {
@@ -46,11 +47,15 @@ export default function MeetupDetails({ location }) {
         <Header>
           <h1>{title}</h1>
           <div>
-            <MaButton onClick={handleEditMeetUpClick} color='#4DBAF9'>
+            <MaButton
+              disabled={isPast}
+              onClick={handleEditMeetUpClick}
+              color='#4DBAF9'
+            >
               <MdEdit />
               Editar
             </MaButton>
-            <MaButton onClick={handleCancelMeetUpClick}>
+            <MaButton disabled={isPast} onClick={handleCancelMeetUpClick}>
               <MdDelete />
               Cancelar
             </MaButton>
