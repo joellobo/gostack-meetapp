@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Image } from 'react-native'
 import PropTypes from 'prop-types'
 
 import { showMessage } from 'react-native-flash-message'
@@ -18,6 +17,7 @@ import {
   SubmitButton,
   SignLink,
   SignLinkText,
+  MaImage,
 } from './styles'
 
 export default function SignUp({ navigation }) {
@@ -50,7 +50,7 @@ export default function SignUp({ navigation }) {
   return (
     <Background>
       <Container>
-        <Image source={logo} />
+        <MaImage source={logo} />
         <Form>
           <FormInput
             icon='person-outline'

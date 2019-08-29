@@ -36,3 +36,8 @@ export const SignLinkText = styled.Text`
   font-weight: bold;
   font-size: 16px;
 `
+
+export const MaImage = styled.Image`
+  height: 50px;
+  width: 50px;
+`
