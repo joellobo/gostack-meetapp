@@ -24,7 +24,7 @@ export const StyledForm = styled(Form)`
     margin: 5px 0;
     font-family: 'Roboto';
     font-size: 18px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.8);
     padding: 25px;
     resize: none;
 
