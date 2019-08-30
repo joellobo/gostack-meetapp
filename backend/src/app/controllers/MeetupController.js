@@ -108,6 +108,14 @@ class MeetupController {
   async update(req, res) {
     const meetUp = await Meetup.findByPk(req.query.meetUpId)
 
+    if (!meetUp) {
+      return res.status(404).json({
+        message: `MeetUp was not found.`,
+        userMessage: 'O MeetUp não pode ser encontrado.',
+        code: 'ERROR_MEETUP_NOT_FOUND',
+      })
+    }
+
     if (meetUp.user_id !== req.userId) {
       return res.status(401).json({
         message: 'You are not authorized to update this MeetUp.',
