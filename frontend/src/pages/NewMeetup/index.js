@@ -70,7 +70,7 @@ export default function NewMeetup({ location }) {
         schema={schema}
       >
         <BannerInput />
-        <MaInput name='title' placeholder='Título do Meetup' />
+        <MaInput maxLength={255} name='title' placeholder='Título do Meetup' />
         <Input
           multiline
           name='description'
@@ -82,7 +82,7 @@ export default function NewMeetup({ location }) {
           name='dateTime'
           selectedDate={location.state && location.state.meetUp.date_time}
         />
-        <MaInput name='location' placeholder='Localização' />
+        <MaInput maxLength={255} name='location' placeholder='Localização' />
         <ButtonWrapper>
           <MaButton type='submit'>
             <MdSave />
