@@ -111,7 +111,7 @@ describe('User update', () => {
     await truncate()
   })
 
-  it('Should be possible update the name of a existent user', async () => {
+  it('Should be possible update the name of an existent user', async () => {
     const user = await factory.attrs('User')
 
     await request(app)
@@ -131,7 +131,7 @@ describe('User update', () => {
     expect(response.body.name).toBe('New User Name')
   })
 
-  it('Should be possible update the email of a existent user', async () => {
+  it('Should be possible update the email of an existent user', async () => {
     const user = await factory.attrs('User')
 
     await request(app)
@@ -151,7 +151,7 @@ describe('User update', () => {
     expect(response.body.email).toBe('newemail@test.com')
   })
 
-  it('Should be possible update the password of a existent user', async () => {
+  it('Should be possible update the password of an existent user', async () => {
     const user = await factory.attrs('User')
 
     await request(app)
@@ -171,7 +171,6 @@ describe('User update', () => {
       })
       .set('Authorization', `Bearer ${sessionData.token}`)
 
-    expect(response.status).toBe(200)
     expect(response.status).toBe(200)
   })
 
@@ -247,7 +246,7 @@ describe('User update', () => {
     expect(response.body.message).toBe('Old password does not match.')
   })
 
-  it('Should be not possible update the email of a existent user with an registered email', async () => {
+  it('Should be not possible update the email of an existent user with a registered email', async () => {
     const registeredUser = await factory.attrs('User', {
       email: 'alreadyregistered@email.com',
     })
