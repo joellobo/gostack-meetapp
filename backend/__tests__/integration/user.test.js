@@ -124,7 +124,7 @@ describe('User update', () => {
 
     const response = await request(app)
       .put('/users')
-      .send({ name: 'New User Name' })
+      .send({ name: 'New User Name', email: user.email })
       .set('Authorization', `Bearer ${sessionData.token}`)
 
     expect(response.status).toBe(200)
@@ -144,7 +144,7 @@ describe('User update', () => {
 
     const response = await request(app)
       .put('/users')
-      .send({ email: 'newemail@test.com' })
+      .send({ email: 'newemail@test.com', name: user.name })
       .set('Authorization', `Bearer ${sessionData.token}`)
 
     expect(response.status).toBe(200)
@@ -165,6 +165,8 @@ describe('User update', () => {
     const response = await request(app)
       .put('/users')
       .send({
+        name: user.name,
+        email: user.email,
         oldPassword: user.password,
         password: '12345678',
         passwordConfirmation: '12345678',
@@ -236,6 +238,8 @@ describe('User update', () => {
     const response = await request(app)
       .put('/users')
       .send({
+        name: user.name,
+        email: user.email,
         oldPassword: 'wrongoldpassword',
         password: '12345678',
         passwordConfirmation: '12345678',
@@ -266,7 +270,7 @@ describe('User update', () => {
 
     const response = await request(app)
       .put('/users')
-      .send({ email: registeredUser.email })
+      .send({ email: registeredUser.email, name: 'New Name' })
       .set('Authorization', `Bearer ${sessionData.token}`)
 
     expect(response.status).toBe(400)
