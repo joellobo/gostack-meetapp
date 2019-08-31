@@ -44,3 +44,19 @@
 - Add some animations to the mobile and web application.
 - Create tests for ALL the controllers and components.
 - Add cache to routes like the meetup list route.
+- Support to iOS.
+
+# Set it up
+
+- Yout need to set up all the react-native enviroment.
+- Install docker and create a postgres and redis container.
+- Clone this repository.
+- Install all dependencies using the command `yarn` in each directory, backend, mobile and frontend.
+- Enter backend directory and fill the `.env` file.
+- Enter backend directory and run `yarn run-dev`.
+- Enter frontend directory and run `yarn start`.
+- Enter mobile directory and run `react-native run-android` while you are running a Android emulator.
+
+## Observation:
+
+- I wasn't able to test the application on iOS because I don't have a MacBook to do it.
