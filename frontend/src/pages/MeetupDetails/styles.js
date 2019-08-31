@@ -27,6 +27,25 @@ export const Header = styled.header`
       max-width: 140px;
       margin-left: 10px;
     }
+
+    @media (max-width: 700px) {
+      justify-content: center;
+      flex-direction: column;
+
+      button {
+        max-width: 100%;
+        margin-left: 0;
+      }
+    }
+  }
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+
+    h1 {
+      margin-bottom: 30px;
+      text-align: center;
+    }
   }
 `
 

@@ -31,12 +31,12 @@
 
 # Extra
 
-- Added some animation to the mobile application when user enter in some screen or changes the date of filter of the meetups.
 - Added a splash screen to the mobile app.
 - Added a icon to the mobile app.
 - Added differente messages to each error, these messages are coming from the backend and showed on forntend by toasts.
 - Added styled toasts to the mobile app instead of the default Alert of react-native.
 - Added tests to the session controller and the user controller.
+- Web responsive layout.
 
 # Possible improvements
 
