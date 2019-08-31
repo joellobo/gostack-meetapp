@@ -44,4 +44,10 @@ export const ButtonWrapper = styled.div`
   button {
     max-width: 200px;
   }
+
+  @media (max-width: 500px) {
+    button {
+      max-width: 100%;
+    }
+  }
 `

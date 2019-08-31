@@ -54,4 +54,10 @@ export const Profile = styled.div`
   button {
     width: 100px;
   }
+
+  @media (max-width: 500px) {
+    img {
+      display: none;
+    }
+  }
 `

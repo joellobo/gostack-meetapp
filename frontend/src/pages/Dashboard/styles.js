@@ -20,6 +20,18 @@ export const Wrapper = styled.div`
     button {
       max-width: 175px;
     }
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+
+      h1 {
+        margin-bottom: 30px;
+      }
+
+      button {
+        max-width: 100%;
+      }
+    }
   }
 `
 
@@ -53,6 +65,10 @@ export const MeetUp = styled.li`
     font-size: 16px;
     font-family: 'Roboto';
     margin: 0 10px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 20px 20px;
   }
 `
 
