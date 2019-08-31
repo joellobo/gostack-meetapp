@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import { withNavigationFocus } from 'react-navigation'
-import { TouchableOpacity, ActivityIndicator, Animated } from 'react-native'
+import { TouchableOpacity, ActivityIndicator } from 'react-native'
 import { format, subDays, addDays, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import PropTypes from 'prop-types'
@@ -28,17 +28,6 @@ function Dashboard({ isFocused }) {
   const [date, setDate] = useState(new Date())
   const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
-  const [screenOpacity, _] = useState(new Animated.Value(0))
-
-  const disapear = Animated.timing(screenOpacity, {
-    toValue: 0,
-    duration: 0,
-  })
-
-  const appear = Animated.timing(screenOpacity, {
-    toValue: 1,
-    duration: 500,
-  })
 
   const dateFormatted = useMemo(
     () => format(date, "d 'de' MMMM", { locale: pt }),
@@ -67,8 +56,6 @@ function Dashboard({ isFocused }) {
 
       setMeetups(formatMeetUpsDate(response.data))
       setIsLoading(false)
-
-      appear.start()
     }
 
     if (isFocused) {
@@ -77,12 +64,10 @@ function Dashboard({ isFocused }) {
   }, [date, isFocused]) // eslint-disable-line
 
   function handlePrevDay() {
-    disapear.start()
     setDate(subDays(date, 1))
   }
 
   function handleNextDay() {
-    disapear.start()
     setDate(addDays(date, 1))
   }
 
@@ -159,9 +144,7 @@ function Dashboard({ isFocused }) {
             <Icon name='keyboard-arrow-right' size={28} color='#fff' />
           </TouchableOpacity>
         </PageTitleContainer>
-        <Animated.View style={{ flex: 1, opacity: screenOpacity }}>
-          {renderMeetups()}
-        </Animated.View>
+        {renderMeetups()}
       </Container>
     </Background>
   )
