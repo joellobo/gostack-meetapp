@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Form } from '@rocketseat/unform'
 
 export const StyledForm = styled(Form)`
-  max-width: 940px;
+  max-width: 800px;
 
   .react-datepicker-wrapper,
   .react-datepicker__input-container {
