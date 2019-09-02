@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import IconMa from 'react-native-vector-icons/MaterialIcons'
+
 import Button from '~/components/Button'
 
 import {
@@ -10,6 +13,7 @@ import {
   Content,
   ContentText,
   CardBody,
+  IconAndText,
 } from './styles'
 
 export default function MeetUpCard({
@@ -25,9 +29,18 @@ export default function MeetUpCard({
       <CardBody>
         <Title>{title}</Title>
         <Content>
-          <ContentText>{formattedDate}</ContentText>
-          <ContentText>{location}</ContentText>
-          <ContentText>Organizador: {owner.name}</ContentText>
+          <IconAndText>
+            <Icon name='calendar' size={24} color='#555' />
+            <ContentText>{formattedDate}</ContentText>
+          </IconAndText>
+          <IconAndText>
+            <IconMa name='pin-drop' size={24} color='#555' />
+            <ContentText>{location}</ContentText>
+          </IconAndText>
+          <IconAndText>
+            <IconMa name='person-outline' size={24} color='#555' />
+            <ContentText>Organizador: {owner.name}</ContentText>
+          </IconAndText>
         </Content>
         <Button onPress={onMainButtonPress}>{mainButtonText}</Button>
       </CardBody>

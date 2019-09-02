@@ -19,14 +19,18 @@ export const Title = styled.Text`
 
 export const Content = styled.View`
   margin: 20px 0;
-  padding-left: 20px;
 `
 
 export const ContentText = styled.Text`
   color: #555;
   font-size: 13px;
+  margin-left: 10px;
 `
 
 export const CardBody = styled.View`
   padding: 20px;
+`
+export const IconAndText = styled.View`
+  flex-direction: row;
+  align-items: center;
 `

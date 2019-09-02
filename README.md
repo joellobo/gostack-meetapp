@@ -46,7 +46,7 @@
 - Add cache to routes like the meetup list route.
 - Support to iOS.
 
-# Set it up
+# Running the project
 
 - Yout need to set up all the react-native enviroment.
 - Install docker and create a postgres and redis container.
