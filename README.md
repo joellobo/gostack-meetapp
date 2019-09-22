@@ -61,13 +61,13 @@
 
 - I wasn't able to test the application on iOS because I don't have a MacBook to do it.
 
-## Redis
-- sudo docker pull redis:3.0.7
+## Docker
 - sudo docker images
-- sudo docker run -d -p 6379:6379 -i -t redis:3.0.7
 - sudo docker ps
-- docker exec -it dc0842cec264 bash
-- ./redis-cli
+
+## Redis
+- sudo docker run -d --name my_redis -p 6379:6379 -i -t redis:3.0.7
+- docker exec -it my_redis redis-cli
 
 ## Postgres
 - docker run -d --name my_postgres -v my_dbdata:/var/lib/postgresql/data -p 54320:5432 postgres:11
